@@ -12,11 +12,11 @@
       :class="headerSolid ? 'opacity-100' : 'opacity-0'"
     ></div>
 
-    <!-- 1. Верхний ярус (z-10): Логотип слева, Контакты справа (десктоп) или Телефон + Бургер (мобильный) -->
+    <!-- Единая верхняя панель (z-10): Логотип со слоганом слева, Пункты меню по центру, Контакты справа -->
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between pt-3.5 sm:pt-4 pb-1.5">
-        <!-- Логотип: плавный кроссфейд белого и цветного прозрачных логотипов (оба БЕЗ рамок и БЕЗ фона) -->
-        <router-link to="/" class="flex items-center gap-3">
+      <div class="flex items-center justify-between py-3 sm:py-3.5">
+        <!-- Логотип и слоган слева -->
+        <router-link to="/" class="flex items-center gap-3 flex-shrink-0">
           <div class="relative h-7 sm:h-8 w-[100px] sm:w-[115px] flex-shrink-0">
             <!-- Белый логотип на прозрачном фоне (без рамки) -->
             <img 
@@ -34,7 +34,7 @@
             />
           </div>
 
-          <div class="hidden sm:block pt-1.5 transition-colors duration-300">
+          <div class="hidden sm:block pt-1 transition-colors duration-300">
             <div 
               class="text-[11px] uppercase tracking-wider font-semibold leading-tight transition-colors duration-300"
               :class="headerSolid ? 'text-slate-900' : 'text-white'"
@@ -50,8 +50,40 @@
           </div>
         </router-link>
 
-        <!-- Контакты справа (Десктоп): БЕЗ линий-разделителей, плавный переход цветов -->
-        <div class="hidden md:flex items-center gap-8 lg:gap-10 text-right">
+        <!-- Пункты меню по центру между слоганом и номером телефона (Десктоп) -->
+        <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-[13px] font-medium transition-colors duration-300 px-4">
+          <a 
+            href="/#directions" 
+            class="transition-colors whitespace-nowrap"
+            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+          >
+            Направления
+          </a>
+          <a 
+            href="/#news" 
+            class="transition-colors whitespace-nowrap"
+            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+          >
+            Новости
+          </a>
+          <a 
+            href="/#about" 
+            class="transition-colors whitespace-nowrap"
+            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+          >
+            О компании
+          </a>
+          <a 
+            href="/#contacts" 
+            class="transition-colors whitespace-nowrap"
+            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+          >
+            Контакты
+          </a>
+        </nav>
+
+        <!-- Контакты справа (Десктоп): Телефон и электронная почта -->
+        <div class="hidden md:flex items-center gap-6 lg:gap-8 text-right flex-shrink-0">
           <!-- Телефон -->
           <div class="flex flex-col whitespace-nowrap">
             <span 
@@ -87,9 +119,8 @@
           </div>
         </div>
 
-        <!-- Мобильная правая часть: бургер меню без подложки (телефон скрыт по требованию) -->
-        <div class="flex items-center md:hidden">
-          <!-- Кнопка бургер: строго без фона, без границ, без подложки -->
+        <!-- Мобильная правая часть: только бургер-кнопка (без подложки) -->
+        <div class="flex items-center lg:hidden">
           <button 
             type="button" 
             class="flex items-center justify-center p-1 focus:outline-none transition-colors duration-300"
@@ -111,42 +142,6 @@
       </div>
     </div>
 
-    <!-- 2. Нижний ярус (Десктоп, z-10): выравнивание по всей ширине контейнера (justify-between по сетке) -->
-    <div class="relative z-10 hidden md:block">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="flex items-center justify-between pt-1 pb-2.5 w-full text-[13px] font-medium transition-colors duration-300">
-          <a 
-            href="/#directions" 
-            class="transition-colors whitespace-nowrap"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
-          >
-            Направления
-          </a>
-          <a 
-            href="/#news" 
-            class="transition-colors whitespace-nowrap"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
-          >
-            Новости
-          </a>
-          <a 
-            href="/#about" 
-            class="transition-colors whitespace-nowrap"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
-          >
-            О компании
-          </a>
-          <a 
-            href="/#contacts" 
-            class="transition-colors whitespace-nowrap"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
-          >
-            Контакты
-          </a>
-        </nav>
-      </div>
-    </div>
-
     <!-- Мобильное выпадающее меню: цвет фона синхронизирован с фоном хедера -->
     <transition
       enter-active-class="transition duration-200 ease-out"
@@ -158,8 +153,8 @@
     >
       <div 
         v-if="isMobileMenuOpen" 
-        class="relative z-10 md:hidden border-t px-5 py-4 space-y-4 transition-colors duration-300"
-        :class="isScrolled 
+        class="relative z-10 lg:hidden border-t px-5 py-4 space-y-4 transition-colors duration-300"
+        :class="headerSolid 
           ? 'bg-white border-slate-200 text-slate-900 shadow-xl' 
           : 'bg-slate-950/95 backdrop-blur-md border-white/10 text-white shadow-2xl'"
       >
