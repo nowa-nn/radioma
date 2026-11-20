@@ -37,7 +37,7 @@
           <div class="p-6 sm:px-10 py-5 bg-slate-50/70 border-t border-slate-200/80 flex items-center justify-between flex-wrap gap-4">
             <router-link 
               :to="{ path: '/', hash: '#news' }" 
-              class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-sky-700 hover:text-sky-900 transition-colors"
+              class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#0093CB] hover:text-[#007EAF] transition-colors"
             >
               <span>←</span>
               <span>Ко всем новостям</span>
@@ -58,7 +58,7 @@
           <div class="pt-2">
             <router-link 
               :to="{ path: '/', hash: '#news' }" 
-              class="inline-block bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-5 py-2.5 rounded-sm transition-colors"
+              class="inline-block bg-[#0093CB] hover:bg-[#007EAF] text-white text-xs font-semibold px-5 py-2.5 rounded-sm transition-colors"
             >
               Вернуться к новостям
             </router-link>

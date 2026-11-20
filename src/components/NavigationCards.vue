@@ -26,7 +26,7 @@
 
             <!-- Наименование направления (в точности по утвержденному списку) -->
             <h3 class="text-base font-bold text-slate-900 leading-snug mt-4">
-              <router-link :to="`/directions/${item.id}`" class="hover:text-sky-700 transition-colors">
+              <router-link :to="`/directions/${item.id}`" class="hover:text-[#0093CB] transition-colors">
                 {{ item.title }}
               </router-link>
             </h3>
@@ -41,7 +41,7 @@
           <div class="pt-4 mt-5 border-t border-slate-100">
             <router-link 
               :to="`/directions/${item.id}`" 
-              class="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-700 hover:text-sky-900 transition-colors"
+              class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0093CB] hover:text-[#007EAF] transition-colors"
             >
               <span>Подробнее</span>
               <span>→</span>

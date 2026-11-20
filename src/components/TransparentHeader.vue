@@ -14,10 +14,10 @@
 
     <!-- Единая верхняя панель (z-10): Логотип со слоганом слева, Пункты меню по центру, Контакты справа -->
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between py-3 sm:py-3.5">
+      <div class="flex items-center justify-between py-2.5 sm:py-3">
         <!-- Логотип и слоган слева -->
-        <router-link to="/" class="flex items-center gap-3 flex-shrink-0">
-          <div class="relative h-11 sm:h-13 w-[98px] sm:w-[116px] flex-shrink-0">
+        <router-link to="/" class="flex items-center gap-3.5 flex-shrink-0">
+          <div class="relative h-13 sm:h-16 w-[116px] sm:w-[142px] flex-shrink-0">
             <!-- Белый логотип на прозрачном фоне (без рамки) -->
             <img 
               :src="`${baseUrl}logo-white.png`" 
@@ -36,7 +36,7 @@
 
           <div class="hidden sm:block pt-0.5 transition-colors duration-300">
             <div 
-              class="text-[11px] sm:text-xs uppercase tracking-wider font-semibold leading-tight transition-colors duration-300"
+              class="text-xs sm:text-[13px] uppercase tracking-wider font-semibold leading-tight transition-colors duration-300"
               :class="headerSolid ? 'text-slate-900' : 'text-white'"
             >
               Оборудование связи и навигации
@@ -55,7 +55,7 @@
           <a 
             href="#directions" 
             class="transition-colors whitespace-nowrap cursor-pointer"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+            :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-white/95 hover:text-[#7FD3F5] drop-shadow'"
             @click="handleNavClick('#directions', $event)"
           >
             Направления
@@ -63,7 +63,7 @@
           <a 
             href="#news" 
             class="transition-colors whitespace-nowrap cursor-pointer"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+            :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-white/95 hover:text-[#7FD3F5] drop-shadow'"
             @click="handleNavClick('#news', $event)"
           >
             Новости
@@ -71,7 +71,7 @@
           <a 
             href="#about" 
             class="transition-colors whitespace-nowrap cursor-pointer"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+            :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-white/95 hover:text-[#7FD3F5] drop-shadow'"
             @click="handleNavClick('#about', $event)"
           >
             О компании
@@ -79,7 +79,7 @@
           <a 
             href="#contacts" 
             class="transition-colors whitespace-nowrap cursor-pointer"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+            :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-white/95 hover:text-[#7FD3F5] drop-shadow'"
             @click="handleNavClick('#contacts', $event)"
           >
             Контакты
@@ -99,7 +99,7 @@
             <a 
               :href="`tel:${phoneRaw}`" 
               class="text-xs sm:text-sm font-bold transition-colors whitespace-nowrap leading-tight mt-0.5"
-              :class="headerSolid ? 'text-slate-900 hover:text-sky-700' : 'text-white hover:text-sky-300'"
+              :class="headerSolid ? 'text-slate-900 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
             >
               {{ phone }}
             </a>
@@ -116,7 +116,7 @@
             <a 
               :href="`mailto:${email}`" 
               class="text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap leading-tight mt-0.5"
-              :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white hover:text-sky-300'"
+              :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
             >
               {{ email }}
             </a>
@@ -128,7 +128,7 @@
           <button 
             type="button" 
             class="flex items-center justify-center p-1 focus:outline-none transition-colors duration-300 cursor-pointer"
-            :class="headerSolid ? 'text-slate-900 hover:text-sky-700' : 'text-white hover:text-sky-300'"
+            :class="headerSolid ? 'text-slate-900 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
             :aria-expanded="isMobileMenuOpen"
             aria-label="Меню навигации"
             @click="isMobileMenuOpen = !isMobileMenuOpen"
@@ -166,7 +166,7 @@
           <a 
             href="#directions" 
             class="py-2.5 text-base font-medium transition-colors cursor-pointer"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-slate-100 hover:text-sky-300'"
+            :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
             @click="handleNavClick('#directions', $event)"
           >
             Направления
@@ -174,7 +174,7 @@
           <a 
             href="#news" 
             class="py-2.5 text-base font-medium transition-colors cursor-pointer"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-slate-100 hover:text-sky-300'"
+            :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
             @click="handleNavClick('#news', $event)"
           >
             Новости
@@ -182,7 +182,7 @@
           <a 
             href="#about" 
             class="py-2.5 text-base font-medium transition-colors cursor-pointer"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-slate-100 hover:text-sky-300'"
+            :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
             @click="handleNavClick('#about', $event)"
           >
             О компании
@@ -190,7 +190,7 @@
           <a 
             href="#contacts" 
             class="py-2.5 text-base font-medium transition-colors cursor-pointer"
-            :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-slate-100 hover:text-sky-300'"
+            :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
             @click="handleNavClick('#contacts', $event)"
           >
             Контакты

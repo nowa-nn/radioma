@@ -45,12 +45,12 @@
 
         <!-- Кнопка перехода к информации о направлении (текст "Подробнее", строго без стрелок) -->
         <div class="pt-3">
-          <a 
-            :href="currentSlideItem.link"
-            class="inline-block bg-sky-600 hover:bg-sky-700 text-white text-sm font-medium px-6 py-3 rounded transition-colors"
+          <router-link 
+            :to="currentSlideItem.link"
+            class="inline-block bg-[#0093CB] hover:bg-[#007EAF] text-white text-sm font-medium px-6 py-3 rounded transition-colors shadow-sm"
           >
             Подробнее
-          </a>
+          </router-link>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ const slides = [
     titleHtml: 'Оборудование систем управления судов',
     description: 'Береговые станции АИС, лоцманские комплексы и системы координации движения судов для обеспечения безопасности мореплавания в портовых водах и на фарватерах.',
     buttonText: 'Подробнее',
-    link: '#suds-ais',
+    link: '/directions/suds-ais',
     image: `${baseUrl}images/ship-4.jpg`
   },
   {
@@ -101,7 +101,7 @@ const slides = [
     titleHtml: 'Системы глобальной <br class="sm:hidden" />морской связи при бедствии',
     description: 'Комплексные береговые и судовые технические решения для несения непрерывной радиовахты в морских районах А1, А2 и А3, включая акваторию СМП.',
     buttonText: 'Подробнее',
-    link: '#gmssb',
+    link: '/directions/gmssb',
     image: `${baseUrl}images/ship-unsplash-1.jpg`
   },
   {
@@ -110,7 +110,7 @@ const slides = [
     titleHtml: 'Радиостанции для морского <br class="sm:hidden" />и речного флота',
     description: 'Стационарные, судовые и носимые радиостанции морского (УКВ/КВ) и речного диапазонов под зарегистрированными торговыми марками «РАДИОМА» и «САНТЕЙ МОБАЙЛ».',
     buttonText: 'Подробнее',
-    link: '#marine-radio',
+    link: '/directions/marine-radio',
     image: `${baseUrl}images/ship-3.jpg`
   }
 ]

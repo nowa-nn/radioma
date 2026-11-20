@@ -28,7 +28,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 items-baseline">
                 <span class="text-slate-400 font-medium">Справочная служба:</span>
                 <div class="sm:col-span-2">
-                  <a :href="`tel:${phoneRaw}`" class="font-bold text-slate-900 text-base hover:text-sky-700 transition-colors">
+                  <a :href="`tel:${phoneRaw}`" class="font-bold text-slate-900 text-base hover:text-[#0093CB] transition-colors">
                     {{ phone }}
                   </a>
                   <div class="text-xs text-slate-500 mt-0.5">Факс: {{ fax }}</div>
@@ -38,7 +38,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 items-baseline">
                 <span class="text-slate-400 font-medium">Электронная почта:</span>
                 <div class="sm:col-span-2">
-                  <a :href="`mailto:${email}`" class="font-semibold text-sky-700 hover:text-sky-900 transition-colors">
+                  <a :href="`mailto:${email}`" class="font-semibold text-[#0093CB] hover:text-[#007EAF] transition-colors">
                     {{ email }}
                   </a>
                 </div>

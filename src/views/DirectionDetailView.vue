@@ -22,11 +22,8 @@
         <!-- Состояние: Направление найдено -->
         <div v-if="direction" class="space-y-8">
           
-          <!-- Главный баннер раздела -->
+          <!-- Главный баннер раздела (без бейджа с надзаголовком) -->
           <div class="bg-white border border-slate-200 rounded-sm p-6 sm:p-10 shadow-sm">
-            <div class="inline-block text-[11px] font-bold uppercase tracking-wider text-sky-800 bg-sky-50 border border-sky-200/60 px-2.5 py-1 rounded-sm mb-3">
-              {{ direction.category }}
-            </div>
             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
               {{ direction.title }}
             </h1>
@@ -65,7 +62,7 @@
                     class="p-4 sm:p-5 bg-slate-50 border border-slate-200/90 rounded-sm space-y-2 hover:border-slate-300 transition-colors"
                   >
                     <div class="flex items-center gap-2">
-                      <span class="w-2 h-2 rounded-full bg-sky-700 flex-shrink-0"></span>
+                      <span class="w-2 h-2 rounded-full bg-[#0093CB] flex-shrink-0"></span>
                       <h3 class="text-sm font-bold text-slate-900 leading-snug">
                         {{ item.title }}
                       </h3>
@@ -90,7 +87,7 @@
                   >
                     <div>
                       <div class="flex items-start justify-between gap-2 mb-2">
-                        <span class="text-[10px] font-semibold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-sm uppercase tracking-wider">
+                        <span class="text-[10px] font-semibold text-[#0093CB] bg-[#EBF6FB] border border-[#B3E1F3]/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">
                           {{ equip.badge }}
                         </span>
                       </div>
@@ -131,7 +128,7 @@
               <div class="pt-4 flex items-center justify-between flex-wrap gap-4 border-t border-slate-200">
                 <router-link 
                   :to="{ path: '/', hash: '#directions' }" 
-                  class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-sky-700 hover:text-sky-900 transition-colors"
+                  class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#0093CB] hover:text-[#007EAF] transition-colors"
                 >
                   <span>←</span>
                   <span>Ко всем направлениям деятельности</span>
@@ -146,43 +143,6 @@
             <!-- Правая боковая колонка (Sidebar) -->
             <aside class="lg:col-span-4 space-y-6">
               
-              <!-- Карточка характеристик направления -->
-              <div class="bg-white border border-slate-200 rounded-sm p-6 shadow-sm space-y-4">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-2.5">
-                  Паспорт направления
-                </h3>
-                
-                <div class="space-y-3.5 text-xs">
-                  <div>
-                    <span class="text-slate-400 block font-medium mb-0.5">Отрасль применения:</span>
-                    <span class="text-slate-900 font-semibold leading-snug block">
-                      {{ direction.sidebar.targetAudience }}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span class="text-slate-400 block font-medium mb-0.5">Акватории и регионы:</span>
-                    <span class="text-slate-900 font-semibold leading-snug block">
-                      {{ direction.sidebar.seaAreas }}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span class="text-slate-400 block font-medium mb-0.5">Регламентирующие нормы:</span>
-                    <span class="text-slate-800 leading-snug block">
-                      {{ direction.sidebar.standards }}
-                    </span>
-                  </div>
-
-                  <div class="pt-2 border-t border-slate-100">
-                    <span class="text-slate-400 block font-medium mb-0.5">Статус поставщика:</span>
-                    <span class="text-slate-900 font-semibold block">
-                      Признанный изготовитель (РМРС / РКО)
-                    </span>
-                  </div>
-                </div>
-              </div>
-
               <!-- Карточка заказа и консультации -->
               <div class="bg-slate-900 text-white border border-slate-800 rounded-sm p-6 shadow-sm space-y-4">
                 <h3 class="text-sm font-bold text-white tracking-tight">
@@ -194,22 +154,23 @@
 
                 <div class="space-y-2 pt-1 text-xs">
                   <div class="text-slate-400">Справочная служба:</div>
-                  <a href="tel:+74957256006" class="block font-bold text-base text-white hover:text-sky-300 transition-colors">
+                  <a href="tel:+74957256006" class="block font-bold text-base text-white hover:text-[#7FD3F5] transition-colors">
                     +7 (495) 725-60-06
                   </a>
                   <div class="text-slate-400 pt-1">Электронная почта:</div>
-                  <a href="mailto:info@radioma.ru" class="block font-semibold text-sky-400 hover:text-sky-300 transition-colors">
+                  <a href="mailto:info@radioma.ru" class="block font-semibold text-[#7FD3F5] hover:text-white transition-colors">
                     info@radioma.ru
                   </a>
                 </div>
 
                 <div class="pt-2">
-                  <a 
-                    :href="`mailto:info@radioma.ru?subject=Запрос по направлению: ${encodeURIComponent(direction.title)}`"
-                    class="block w-full text-center bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold py-2.5 px-4 rounded-sm transition-colors"
+                  <button 
+                    type="button"
+                    class="block w-full text-center bg-[#0093CB] hover:bg-[#007EAF] active:bg-[#006B95] text-white text-xs font-semibold py-3 px-4 rounded-sm transition-colors cursor-pointer shadow-sm"
+                    @click="isModalOpen = true"
                   >
                     Запросить коммерческое предложение
-                  </a>
+                  </button>
                 </div>
               </div>
 
@@ -222,12 +183,12 @@
                   <li v-for="item in otherDirections" :key="item.id">
                     <router-link 
                       :to="`/directions/${item.id}`"
-                      class="text-slate-700 hover:text-sky-700 transition-colors flex items-center justify-between group py-1"
+                      class="text-slate-700 hover:text-[#0093CB] transition-colors flex items-center justify-between group py-1"
                     >
                       <span class="group-hover:translate-x-0.5 transition-transform line-clamp-1">
                         {{ item.shortTitle }}
                       </span>
-                      <span class="text-slate-400 group-hover:text-sky-700 transition-colors ml-2">→</span>
+                      <span class="text-slate-400 group-hover:text-[#0093CB] transition-colors ml-2">→</span>
                     </router-link>
                   </li>
                 </ul>
@@ -246,7 +207,7 @@
           <div class="pt-2">
             <router-link 
               :to="{ path: '/', hash: '#directions' }" 
-              class="inline-block bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-5 py-2.5 rounded-sm transition-colors"
+              class="inline-block bg-[#0093CB] hover:bg-[#007EAF] text-white text-xs font-semibold px-5 py-2.5 rounded-sm transition-colors"
             >
               Вернуться к направлениям
             </router-link>
@@ -256,19 +217,27 @@
       </div>
     </main>
 
+    <!-- Попап обратной связи для запроса коммерческого предложения -->
+    <FeedbackModal 
+      v-model="isModalOpen" 
+      :subject="direction ? direction.title : ''" 
+    />
+
     <!-- Подвал сайта -->
     <FooterSection />
   </div>
 </template>
 
 <script setup>
-import { computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import TransparentHeader from '../components/TransparentHeader.vue'
 import FooterSection from '../components/FooterSection.vue'
+import FeedbackModal from '../components/FeedbackModal.vue'
 import directionsData from '../data/directions.json'
 
 const route = useRoute()
+const isModalOpen = ref(false)
 
 const directionId = computed(() => route.params.id)
 

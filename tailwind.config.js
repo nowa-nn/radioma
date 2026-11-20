@@ -11,13 +11,21 @@ export default {
       },
       colors: {
         radioma: {
-          blue: '#0084C7',      // фирменный циан-синий с логотипа и брошюры
-          'blue-dark': '#00669E',
-          'blue-light': '#E6F4FA',
+          blue: '#0093CB',      // фирменный циан-голубой цвет логотипа
+          'blue-dark': '#007EAF',
+          'blue-deep': '#006B95',
+          'blue-light': '#EBF6FB',
           navy: '#0B253A',      // глубокий морской технический цвет
           'navy-dark': '#071826',
           yellow: '#F5B800',    // технический желтый цвет кейса и акцентов из брошюры
           'yellow-hover': '#DF9B00',
+        },
+        brand: {
+          DEFAULT: '#0093CB',
+          hover: '#007EAF',
+          dark: '#006B95',
+          light: '#EBF6FB',
+          border: '#B3E1F3'
         }
       }
     },

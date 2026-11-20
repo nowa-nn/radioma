@@ -25,7 +25,7 @@
 
           <!-- Название новости (ссылка на отдельную страницу) -->
           <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
-            <router-link :to="`/news/${item.id}`" class="hover:text-sky-700 transition-colors">
+            <router-link :to="`/news/${item.id}`" class="hover:text-[#0093CB] transition-colors">
               {{ item.title }}
             </router-link>
           </h3>
@@ -35,7 +35,7 @@
             <span v-if="item.textPreview">{{ item.textPreview }}</span>
             <router-link 
               :to="`/news/${item.id}`" 
-              class="text-sky-700 hover:text-sky-900 font-semibold ml-2 whitespace-nowrap transition-colors inline-block"
+              class="text-[#0093CB] hover:text-[#007EAF] font-semibold ml-2 whitespace-nowrap transition-colors inline-block"
             >
               Читать полностью
             </router-link>
@@ -49,7 +49,7 @@
             <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-end">
               <router-link 
                 :to="`/news/${item.id}`" 
-                class="text-xs font-semibold text-sky-700 hover:text-sky-900 transition-colors"
+                class="text-xs font-semibold text-[#0093CB] hover:text-[#007EAF] transition-colors"
               >
                 Читать полностью
               </router-link>
@@ -62,7 +62,7 @@
       <div v-if="newsList.length > 3" class="mt-6 pt-2">
         <button 
           type="button" 
-          class="text-xs sm:text-sm font-semibold text-sky-700 hover:text-sky-900 transition-colors cursor-pointer underline-offset-4 hover:underline focus:outline-none"
+          class="text-xs sm:text-sm font-semibold text-[#0093CB] hover:text-[#007EAF] transition-colors cursor-pointer underline-offset-4 hover:underline focus:outline-none"
           @click="showAll = !showAll"
         >
           {{ showAll ? 'Свернуть новости' : 'Показать больше новостей' }}

@@ -3,19 +3,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         <!-- Логотип и статус компании -->
-        <div class="md:col-span-5 space-y-3">
-          <div class="flex items-center gap-3">
-            <img :src="`${baseUrl}logo-white.png`" alt="РАДИОМА" class="h-10 sm:h-11 w-auto object-contain" />
-            <div class="border-l border-slate-700 pl-3">
-              <div class="text-[11px] uppercase tracking-wider font-semibold text-white leading-tight">
-                Оборудование связи и навигации
-              </div>
-              <div class="text-[10px] text-slate-400 leading-tight">
-                Поставка, интеграция и сервис
-              </div>
-            </div>
+        <div class="md:col-span-5 space-y-4">
+          <div>
+            <img :src="`${baseUrl}logo-white.png`" alt="РАДИОМА" class="h-14 sm:h-16 w-auto object-contain object-left" />
           </div>
-          <p class="text-xs text-slate-400 leading-relaxed max-w-sm pt-1">
+          <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
             ООО «Радиома оборудование связи и навигации» — отечественные ведомственные системы радиосвязи, безопасности мореплавания и навигации с 1995 года.
           </p>
         </div>
@@ -64,13 +56,13 @@
           </div>
           <div>
             <span class="block text-[10px] text-slate-500 uppercase">Справочная служба:</span>
-            <a href="tel:+74957256006" class="text-white font-bold hover:text-sky-300 transition-colors">
+            <a href="tel:+74957256006" class="text-white font-bold hover:text-[#7FD3F5] transition-colors">
               (495) 725-60-06
             </a>
           </div>
           <div>
             <span class="block text-[10px] text-slate-500 uppercase">Электронная почта:</span>
-            <a href="mailto:info@radioma.ru" class="text-white hover:text-sky-300 transition-colors">
+            <a href="mailto:info@radioma.ru" class="text-white hover:text-[#7FD3F5] transition-colors">
               info@radioma.ru
             </a>
           </div>
@@ -86,8 +78,14 @@
         <div>
           © 1995–2026 ООО «Радиома оборудование связи и навигации». Все права защищены.
         </div>
-        <div>
-          Официальный сайт компании
+        <div class="flex items-center gap-3 sm:gap-4 flex-wrap text-slate-400">
+          <a href="#" class="hover:text-white transition-colors cursor-pointer" @click.prevent>
+            Политика конфиденциальности
+          </a>
+          <span class="text-slate-600 hidden sm:inline">•</span>
+          <a href="#" class="hover:text-white transition-colors cursor-pointer" @click.prevent>
+            Согласие на обработку персональных данных
+          </a>
         </div>
       </div>
     </div>
