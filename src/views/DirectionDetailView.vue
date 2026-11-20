@@ -111,11 +111,6 @@
                     class="p-5 border border-slate-200 rounded-sm flex flex-col justify-between hover:border-slate-300 transition-colors bg-white"
                   >
                     <div>
-                      <div class="flex items-start justify-between gap-2 mb-2">
-                        <span class="text-[10px] font-semibold text-[#0093CB] bg-[#EBF6FB] border border-[#B3E1F3]/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">
-                          {{ equip.badge }}
-                        </span>
-                      </div>
                       <h3 class="text-base font-bold text-slate-900">
                         {{ equip.name }}
                       </h3>

@@ -9,39 +9,31 @@
     <transition name="fade">
       <div 
         :key="currentSlideItem.id" 
-        class="absolute inset-0 w-full h-full"
+        class="absolute inset-0 w-full h-full bg-slate-950"
       >
-        <!-- Полноэкранная фотография -->
-        <img 
-          :src="currentSlideItem.image" 
-          :alt="currentSlideItem.title"
-          class="w-full h-full object-cover object-center"
-        />
+        <!-- Обертка фото: на первом слайде сдвинута вправо на десктопе, открывая радиоприемник и логотип «РАДИОМА» справа -->
+        <div :class="currentSlideItem.imageWrapperClass || 'absolute inset-0 w-full h-full'">
+          <img 
+            :src="currentSlideItem.image" 
+            :alt="currentSlideItem.title"
+            :class="currentSlideItem.imageClass || 'w-full h-full object-cover object-center'"
+          />
+        </div>
 
-        <!-- Плавное затемнение: если слайд выровнен вправо, затемняем правый край, открывая радиооборудование «РАДИОМА» слева -->
-        <div 
-          v-if="currentSlideItem.align === 'right'"
-          class="absolute inset-0 bg-gradient-to-l from-slate-950/95 via-slate-950/80 to-slate-950/25"
-        ></div>
-        <div 
-          v-else
-          class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 to-slate-950/25"
-        ></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20"></div>
+        <!-- Плавное затемнение: глубокий темный тон слева для чтения текста, плавно переходящий в фото справа -->
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 lg:via-slate-950/50 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20 pointer-events-none"></div>
         <!-- Верхнее мягкое затемнение для прозрачного хедера -->
         <div v-if="isTransparent" class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
       </div>
     </transition>
 
-    <!-- Контент поверх затемненного изображения (без скобок в названиях, текст свободно копируется) -->
+    <!-- Контент поверх затемненного изображения (всегда слева с идеальной читаемостью) -->
     <div 
       class="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-center"
       :class="isTransparent ? 'pt-24 sm:pt-28' : ''"
     >
-      <div 
-        class="max-w-2xl space-y-5"
-        :class="currentSlideItem.align === 'right' ? 'sm:ml-auto text-left sm:text-right flex flex-col sm:items-end' : ''"
-      >
+      <div class="max-w-2xl space-y-5 text-left">
         <!-- Крупный заголовок слайда (на мобильных устройствах слайды 2 и 3 разбиты ровно на 3 строки) -->
         <h1 
           class="text-2xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight"
@@ -49,18 +41,12 @@
         ></h1>
 
         <!-- Лаконичный производственный текст -->
-        <p 
-          class="text-base sm:text-lg text-slate-200 leading-relaxed font-normal max-w-xl"
-          :class="currentSlideItem.align === 'right' ? 'sm:text-right' : ''"
-        >
+        <p class="text-base sm:text-lg text-slate-200 leading-relaxed font-normal max-w-xl">
           {{ currentSlideItem.description }}
         </p>
 
         <!-- Кнопка перехода к информации о направлении (текст "Подробнее" или "О компании") -->
-        <div 
-          class="pt-3"
-          :class="currentSlideItem.align === 'right' ? 'flex justify-start sm:justify-end' : ''"
-        >
+        <div class="pt-3">
           <a 
             v-if="currentSlideItem.link.startsWith('#')"
             :href="currentSlideItem.link"
@@ -116,13 +102,14 @@ const baseUrl = import.meta.env.BASE_URL
 const slides = [
   {
     id: 'company-overview',
-    align: 'right',
     title: 'ООО «Радиома» — радиосвязь и навигация с 1995 года',
     titleHtml: 'ООО «Радиома» — радиосвязь <br class="sm:hidden" />и навигация с 1995 года',
     description: 'Отечественный поставщик и признанный изготовитель ведомственных систем радиосвязи, оборудования безопасности мореплавания, комплексов ГМССБ и АИС для морского и речного флота России.',
     buttonText: 'О компании',
     link: '#about',
-    image: `${baseUrl}images/pome/dscf2.jpg`
+    image: `${baseUrl}images/pome/dscf2.jpg`,
+    imageWrapperClass: 'absolute inset-y-0 right-0 w-full lg:w-[65%] xl:w-[60%]',
+    imageClass: 'w-full h-full object-cover object-left'
   },
   {
     id: 'suds-ais',
