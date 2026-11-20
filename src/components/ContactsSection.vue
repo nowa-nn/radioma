@@ -14,7 +14,7 @@
         <div class="lg:col-span-7 bg-white border border-slate-200 rounded-sm p-6 sm:p-8 flex flex-col justify-between h-full">
           <div>
             <h3 class="text-base sm:text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">
-              Центральный офис и научно-технический центр
+              Центральный офис
             </h3>
 
             <div class="space-y-4 text-xs sm:text-sm text-slate-700 mt-5">

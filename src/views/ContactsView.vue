@@ -33,7 +33,7 @@
                 <div class="w-24 font-bold text-slate-500 uppercase text-[11px] pt-0.5">Адрес:</div>
                 <div class="flex-1 font-medium text-slate-900">
                   {{ companyContacts.address }}
-                  <div class="text-xs text-slate-500 font-normal mt-0.5">Производственно-инженерный комплекс РАДИОМА</div>
+                  <div class="text-xs text-slate-500 font-normal mt-0.5">Центральный офис компании РАДИОМА</div>
                 </div>
               </div>
 

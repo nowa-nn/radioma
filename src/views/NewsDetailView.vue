@@ -9,7 +9,7 @@
         <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 flex-wrap">
           <router-link to="/" class="hover:text-slate-900 transition-colors">Главная</router-link>
           <span>/</span>
-          <router-link to="/#news" class="hover:text-slate-900 transition-colors">Новости</router-link>
+          <router-link :to="{ path: '/', hash: '#news' }" class="hover:text-slate-900 transition-colors">Новости</router-link>
           <span>/</span>
           <span class="text-slate-800 font-medium truncate max-w-xs sm:max-w-md">
             {{ article ? article.title : 'Загрузка...' }}
@@ -36,7 +36,7 @@
           <!-- Подвал статьи с кнопкой возврата -->
           <div class="p-6 sm:px-10 py-5 bg-slate-50/70 border-t border-slate-200/80 flex items-center justify-between flex-wrap gap-4">
             <router-link 
-              to="/#news" 
+              :to="{ path: '/', hash: '#news' }" 
               class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-sky-700 hover:text-sky-900 transition-colors"
             >
               <span>←</span>
@@ -57,7 +57,7 @@
           </p>
           <div class="pt-2">
             <router-link 
-              to="/#news" 
+              :to="{ path: '/', hash: '#news' }" 
               class="inline-block bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-5 py-2.5 rounded-sm transition-colors"
             >
               Вернуться к новостям

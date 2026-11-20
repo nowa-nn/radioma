@@ -2,16 +2,16 @@
   <footer class="w-full bg-slate-900 text-slate-300 border-t border-slate-800 py-10 sm:py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-        <!-- Логотип и статус предприятия -->
+        <!-- Логотип и статус компании -->
         <div class="md:col-span-5 space-y-3">
           <div class="flex items-center gap-3">
-            <img :src="`${baseUrl}logo-white.png`" alt="РАДИОМА" class="h-7 w-auto object-contain" />
+            <img :src="`${baseUrl}logo-white.png`" alt="РАДИОМА" class="h-8 w-auto object-contain" />
             <div class="border-l border-slate-700 pl-3">
               <div class="text-[11px] uppercase tracking-wider font-semibold text-white leading-tight">
                 Оборудование связи и навигации
               </div>
               <div class="text-[10px] text-slate-400 leading-tight">
-                Разработка, производство и сервис
+                Поставка, интеграция и сервис
               </div>
             </div>
           </div>
@@ -26,10 +26,34 @@
             Разделы сайта
           </div>
           <div class="flex flex-col space-y-2 text-slate-300">
-            <a href="/#directions" class="hover:text-white transition-colors">Направления деятельности</a>
-            <a href="/#news" class="hover:text-white transition-colors">Новости</a>
-            <a href="/#about" class="hover:text-white transition-colors">О предприятии</a>
-            <a href="/#contacts" class="hover:text-white transition-colors">Контакты и реквизиты</a>
+            <a 
+              href="#directions" 
+              class="hover:text-white transition-colors cursor-pointer"
+              @click="handleNavClick('#directions', $event)"
+            >
+              Направления деятельности
+            </a>
+            <a 
+              href="#news" 
+              class="hover:text-white transition-colors cursor-pointer"
+              @click="handleNavClick('#news', $event)"
+            >
+              Новости
+            </a>
+            <a 
+              href="#about" 
+              class="hover:text-white transition-colors cursor-pointer"
+              @click="handleNavClick('#about', $event)"
+            >
+              О компании
+            </a>
+            <a 
+              href="#contacts" 
+              class="hover:text-white transition-colors cursor-pointer"
+              @click="handleNavClick('#contacts', $event)"
+            >
+              Контакты и реквизиты
+            </a>
           </div>
         </div>
 
@@ -63,7 +87,7 @@
           © 1995–2026 ООО «Радиома оборудование связи и навигации». Все права защищены.
         </div>
         <div>
-          Официальный сайт научно-производственного предприятия
+          Официальный сайт компании
         </div>
       </div>
     </div>
@@ -71,5 +95,26 @@
 </template>
 
 <script setup>
+import { useRouter, useRoute } from 'vue-router'
+
 const baseUrl = import.meta.env.BASE_URL
+const router = useRouter()
+const route = useRoute()
+
+function handleNavClick(hash, event) {
+  if (event) {
+    event.preventDefault()
+  }
+
+  if (route.path === '/' || route.path === '') {
+    const target = document.querySelector(hash)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' })
+      window.history.pushState(null, '', hash)
+      return
+    }
+  }
+
+  router.push({ path: '/', hash })
+}
 </script>

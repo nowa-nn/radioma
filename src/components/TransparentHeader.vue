@@ -17,7 +17,7 @@
       <div class="flex items-center justify-between py-3 sm:py-3.5">
         <!-- Логотип и слоган слева -->
         <router-link to="/" class="flex items-center gap-3 flex-shrink-0">
-          <div class="relative h-7 sm:h-8 w-[100px] sm:w-[115px] flex-shrink-0">
+          <div class="relative h-8 sm:h-9 w-[75px] sm:w-[84px] flex-shrink-0">
             <!-- Белый логотип на прозрачном фоне (без рамки) -->
             <img 
               :src="`${baseUrl}logo-white.png`" 
@@ -34,7 +34,7 @@
             />
           </div>
 
-          <div class="hidden sm:block pt-1 transition-colors duration-300">
+          <div class="hidden sm:block pt-0.5 transition-colors duration-300">
             <div 
               class="text-[11px] uppercase tracking-wider font-semibold leading-tight transition-colors duration-300"
               :class="headerSolid ? 'text-slate-900' : 'text-white'"
@@ -45,7 +45,7 @@
               class="text-[10px] leading-tight mt-0.5 transition-colors duration-300"
               :class="headerSolid ? 'text-slate-500' : 'text-slate-300'"
             >
-              Разработка, производство и сервис
+              Поставка, интеграция и сервис
             </div>
           </div>
         </router-link>
@@ -53,30 +53,34 @@
         <!-- Пункты меню по центру между слоганом и номером телефона (Десктоп) -->
         <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-[13px] font-medium transition-colors duration-300 px-4">
           <a 
-            href="/#directions" 
-            class="transition-colors whitespace-nowrap"
+            href="#directions" 
+            class="transition-colors whitespace-nowrap cursor-pointer"
             :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+            @click="handleNavClick('#directions', $event)"
           >
             Направления
           </a>
           <a 
-            href="/#news" 
-            class="transition-colors whitespace-nowrap"
+            href="#news" 
+            class="transition-colors whitespace-nowrap cursor-pointer"
             :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+            @click="handleNavClick('#news', $event)"
           >
             Новости
           </a>
           <a 
-            href="/#about" 
-            class="transition-colors whitespace-nowrap"
+            href="#about" 
+            class="transition-colors whitespace-nowrap cursor-pointer"
             :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+            @click="handleNavClick('#about', $event)"
           >
             О компании
           </a>
           <a 
-            href="/#contacts" 
-            class="transition-colors whitespace-nowrap"
+            href="#contacts" 
+            class="transition-colors whitespace-nowrap cursor-pointer"
             :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white/95 hover:text-sky-300 drop-shadow'"
+            @click="handleNavClick('#contacts', $event)"
           >
             Контакты
           </a>
@@ -123,7 +127,7 @@
         <div class="flex items-center lg:hidden">
           <button 
             type="button" 
-            class="flex items-center justify-center p-1 focus:outline-none transition-colors duration-300"
+            class="flex items-center justify-center p-1 focus:outline-none transition-colors duration-300 cursor-pointer"
             :class="headerSolid ? 'text-slate-900 hover:text-sky-700' : 'text-white hover:text-sky-300'"
             :aria-expanded="isMobileMenuOpen"
             aria-label="Меню навигации"
@@ -160,34 +164,34 @@
       >
         <nav class="flex flex-col" :class="headerSolid ? 'divide-y divide-slate-100' : 'divide-y divide-white/10'">
           <a 
-            href="/#directions" 
-            class="py-2.5 text-base font-medium transition-colors"
+            href="#directions" 
+            class="py-2.5 text-base font-medium transition-colors cursor-pointer"
             :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-slate-100 hover:text-sky-300'"
-            @click="isMobileMenuOpen = false"
+            @click="handleNavClick('#directions', $event)"
           >
             Направления
           </a>
           <a 
-            href="/#news" 
-            class="py-2.5 text-base font-medium transition-colors"
+            href="#news" 
+            class="py-2.5 text-base font-medium transition-colors cursor-pointer"
             :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-slate-100 hover:text-sky-300'"
-            @click="isMobileMenuOpen = false"
+            @click="handleNavClick('#news', $event)"
           >
             Новости
           </a>
           <a 
-            href="/#about" 
-            class="py-2.5 text-base font-medium transition-colors"
+            href="#about" 
+            class="py-2.5 text-base font-medium transition-colors cursor-pointer"
             :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-slate-100 hover:text-sky-300'"
-            @click="isMobileMenuOpen = false"
+            @click="handleNavClick('#about', $event)"
           >
             О компании
           </a>
           <a 
-            href="/#contacts" 
-            class="py-2.5 text-base font-medium transition-colors"
+            href="#contacts" 
+            class="py-2.5 text-base font-medium transition-colors cursor-pointer"
             :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-slate-100 hover:text-sky-300'"
-            @click="isMobileMenuOpen = false"
+            @click="handleNavClick('#contacts', $event)"
           >
             Контакты
           </a>
@@ -219,7 +223,7 @@
             </a>
           </div>
           <p class="text-[11px] text-slate-400 pt-1 leading-snug">
-            ООО «Радиома» — разработка, производство и сервис систем связи с 1995 года
+            ООО «Радиома» — оборудование радиосвязи и навигации с 1995 года
           </p>
         </div>
       </div>
@@ -229,7 +233,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const props = defineProps({
   forceSolid: {
@@ -239,6 +243,7 @@ const props = defineProps({
 })
 
 const baseUrl = import.meta.env.BASE_URL
+const router = useRouter()
 const route = useRoute()
 const isMobileMenuOpen = ref(false)
 const isScrolled = ref(false)
@@ -253,6 +258,24 @@ const headerSolid = computed(() => {
 
 function handleScroll() {
   isScrolled.value = window.scrollY > 20
+}
+
+function handleNavClick(hash, event) {
+  if (event) {
+    event.preventDefault()
+  }
+  isMobileMenuOpen.value = false
+
+  if (route.path === '/' || route.path === '') {
+    const target = document.querySelector(hash)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' })
+      window.history.pushState(null, '', hash)
+      return
+    }
+  }
+
+  router.push({ path: '/', hash })
 }
 
 onMounted(() => {
