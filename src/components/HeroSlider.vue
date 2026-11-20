@@ -32,19 +32,13 @@
           ></div>
         </div>
 
-        <!-- Плавное затемнение: глубокий темный тон слева для чтения текста, плавно переходящий в фото справа -->
-        <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 lg:via-slate-950/60 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20 pointer-events-none"></div>
+        <!-- Плавное затемнение на десктопе: глубокий темный тон слева для чтения текста, плавно переходящий в фото справа -->
+        <div class="hidden sm:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 lg:via-slate-950/60 to-transparent pointer-events-none"></div>
+        <div class="hidden sm:block absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20 pointer-events-none"></div>
 
-        <!-- Дополнительное усиленное затемнение в мобильной версии для первого слайда для идеальной читаемости текста -->
-        <div 
-          v-if="currentSlideItem.id === 'company-overview'" 
-          class="absolute inset-0 bg-slate-950/70 sm:hidden pointer-events-none"
-        ></div>
-        <div 
-          v-if="currentSlideItem.id === 'company-overview'" 
-          class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/40 sm:hidden pointer-events-none"
-        ></div>
+        <!-- Сбалансированное мягкое затемнение в мобильной версии: радиоприемник и детали фото четко видны, а текст комфортно читается -->
+        <div class="sm:hidden absolute inset-0 bg-gradient-to-r from-slate-950/65 via-slate-950/35 to-slate-950/20 pointer-events-none"></div>
+        <div class="sm:hidden absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/30 to-slate-950/15 pointer-events-none"></div>
 
         <!-- Верхнее мягкое затемнение для прозрачного хедера -->
         <div v-if="isTransparent" class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
@@ -59,12 +53,12 @@
       <div class="max-w-2xl space-y-5 text-left">
         <!-- Крупный заголовок слайда (на мобильных устройствах слайды 2 и 3 разбиты ровно на 3 строки) -->
         <h1 
-          class="text-2xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight"
+          class="text-2xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] sm:drop-shadow-none"
           v-html="currentSlideItem.titleHtml || currentSlideItem.title"
         ></h1>
 
         <!-- Лаконичный производственный текст -->
-        <p class="text-base sm:text-lg text-slate-200 leading-relaxed font-normal max-w-xl">
+        <p class="text-base sm:text-lg text-slate-100 sm:text-slate-200 leading-relaxed font-normal max-w-xl drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] sm:drop-shadow-none">
           {{ currentSlideItem.description }}
         </p>
 
