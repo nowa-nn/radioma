@@ -3,7 +3,7 @@
     <!-- Шапка сайта (на внутренней странице автоматически работает в белом солидном режиме) -->
     <TransparentHeader :force-solid="true" />
 
-    <main class="flex-grow pt-24 sm:pt-28 pb-16">
+    <main class="flex-grow pt-28 sm:pt-36 pb-16">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Навигационные хлебные крошки (Breadcrumbs) -->
         <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 flex-wrap">

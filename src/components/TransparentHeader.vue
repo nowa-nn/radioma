@@ -14,26 +14,22 @@
 
     <!-- Единая верхняя панель (z-10): Логотип со слоганом слева, Пункты меню по центру, Контакты справа -->
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between py-2.5 sm:py-3">
-        <!-- Логотип слева (строго без приписки) -->
-        <router-link to="/" class="flex items-center flex-shrink-0">
+      <div class="flex items-center justify-between h-12 sm:h-14">
+        <!-- Логотип слева на отдельном свисающем шейпе (свисает с верхней границы хедера) -->
+        <router-link 
+          to="/" 
+          class="relative flex-shrink-0 h-12 sm:h-14 w-[8.625rem] sm:w-[11rem] lg:w-[12.75rem] z-20 group"
+          aria-label="ООО «Радиома»"
+        >
+          <!-- Свисающий шейп: прикреплен к top-0, по высоте больше хедера, со скругленным низом как на макете -->
           <div 
-            class="relative h-12 sm:h-16 w-[106px] sm:w-[142px] flex-shrink-0"
-            style="min-height: 48px; min-width: 106px;"
+            class="absolute top-0 left-0 w-full h-[4.875rem] sm:h-[6rem] lg:h-[6.75rem] bg-[#0093CB] rounded-b-xl sm:rounded-b-3xl shadow-[0_8px_20px_rgba(0,0,0,0.22)] border-x border-b border-[#007EAF] flex items-center justify-center px-3 sm:px-4.5 pt-1.5 sm:pt-2.5 pb-3 sm:pb-4 transition-all duration-200"
           >
-            <!-- Белый логотип на прозрачном фоне (без рамки) -->
+            <!-- Читаемый белый логотип на фирменном голубом шейпе -->
             <img 
               :src="`${baseUrl}logo-white.png`" 
               alt="РАДИОМА" 
-              class="absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-300 pointer-events-none"
-              :class="headerSolid ? 'opacity-0' : 'opacity-100'"
-            />
-            <!-- Цветной логотип на прозрачном фоне (без рамки, из logo-Photoroom) -->
-            <img 
-              :src="`${baseUrl}logo-transparent.png`" 
-              alt="РАДИОМА" 
-              class="absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-300 pointer-events-none"
-              :class="headerSolid ? 'opacity-100' : 'opacity-0'"
+              class="w-full h-auto max-h-[3rem] sm:max-h-[3.875rem] lg:max-h-[4.5rem] object-contain pointer-events-none select-none"
             />
           </div>
         </router-link>
