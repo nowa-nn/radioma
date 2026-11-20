@@ -12,16 +12,28 @@
         class="absolute inset-0 w-full h-full bg-slate-950"
       >
         <!-- Обертка фото: на первом слайде сдвинута вправо на десктопе, открывая радиоприемник и логотип «РАДИОМА» справа -->
-        <div :class="currentSlideItem.imageWrapperClass || 'absolute inset-0 w-full h-full'">
+        <div 
+          :class="currentSlideItem.imageWrapperClass || 'absolute inset-0 w-full h-full'"
+          :style="currentSlideItem.id === 'company-overview' ? {
+            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 15%, black 35%, black 100%)',
+            maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 15%, black 35%, black 100%)'
+          } : {}"
+        >
           <img 
             :src="currentSlideItem.image" 
             :alt="currentSlideItem.title"
             :class="currentSlideItem.imageClass || 'w-full h-full object-cover object-center'"
           />
+
+          <!-- Дополнительный мягкий внутренний градиент слева у фото для абсолютной бесшовности -->
+          <div 
+            v-if="currentSlideItem.id === 'company-overview'" 
+            class="absolute inset-y-0 left-0 w-48 sm:w-80 lg:w-96 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent pointer-events-none"
+          ></div>
         </div>
 
         <!-- Плавное затемнение: глубокий темный тон слева для чтения текста, плавно переходящий в фото справа -->
-        <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 lg:via-slate-950/50 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 lg:via-slate-950/60 to-transparent pointer-events-none"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20 pointer-events-none"></div>
         <!-- Верхнее мягкое затемнение для прозрачного хедера -->
         <div v-if="isTransparent" class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
