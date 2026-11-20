@@ -74,8 +74,8 @@
           </a>
         </nav>
 
-        <!-- Контакты справа (Десктоп): Телефон и электронная почта -->
-        <div class="hidden md:flex items-center gap-6 lg:gap-8 text-right flex-shrink-0">
+        <!-- Контакты справа (Десктоп): Телефон и кнопка «Связаться» -->
+        <div class="hidden md:flex items-center gap-5 lg:gap-6 text-right flex-shrink-0">
           <!-- Телефон -->
           <div class="flex flex-col whitespace-nowrap">
             <span 
@@ -93,22 +93,14 @@
             </a>
           </div>
 
-          <!-- Электронная почта -->
-          <div class="flex flex-col whitespace-nowrap">
-            <span 
-              class="text-[10px] leading-none transition-colors duration-300"
-              :class="headerSolid ? 'text-slate-400' : 'text-slate-300'"
-            >
-              Электронная почта:
-            </span>
-            <a 
-              :href="`mailto:${email}`" 
-              class="text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap leading-tight mt-0.5"
-              :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
-            >
-              {{ email }}
-            </a>
-          </div>
+          <!-- Кнопка «Связаться» вместо электронной почты -->
+          <button 
+            type="button" 
+            class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-sm transition-all duration-200 cursor-pointer shadow-sm text-white bg-[#0093CB] hover:bg-[#007EAF] active:translate-y-px"
+            @click="isContactModalOpen = true"
+          >
+            Связаться
+          </button>
         </div>
 
         <!-- Мобильная правая часть: только бургер-кнопка (без подложки) -->
@@ -187,7 +179,7 @@
 
         <!-- Контактная информация внутри мобильного меню -->
         <div 
-          class="pt-3 border-t space-y-2 text-xs transition-colors duration-300"
+          class="pt-3 border-t space-y-3 text-xs transition-colors duration-300"
           :class="headerSolid ? 'border-slate-200 text-slate-600' : 'border-white/10 text-slate-300'"
         >
           <div>
@@ -201,14 +193,13 @@
             </a>
           </div>
           <div>
-            <span class="text-[10px] text-slate-400 block uppercase tracking-wider">Электронная почта:</span>
-            <a 
-              :href="`mailto:${email}`" 
-              class="text-xs font-semibold transition-colors"
-              :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
+            <button 
+              type="button" 
+              class="w-full py-2.5 px-4 text-xs font-semibold rounded-sm text-white bg-[#0093CB] hover:bg-[#007EAF] transition-colors cursor-pointer text-center"
+              @click="isMobileMenuOpen = false; isContactModalOpen = true"
             >
-              {{ email }}
-            </a>
+              Связаться
+            </button>
           </div>
           <p class="text-[11px] text-slate-400 pt-1 leading-snug">
             ООО «Радиома» — оборудование радиосвязи и навигации с 1995 года
@@ -216,12 +207,20 @@
         </div>
       </div>
     </transition>
+
+    <!-- Попап обратной связи «Связаться» -->
+    <FeedbackModal 
+      v-model="isContactModalOpen" 
+      title="Связаться с нами" 
+      subject="Обращение через форму связи в шапке сайта" 
+    />
   </header>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import FeedbackModal from './FeedbackModal.vue'
 
 const props = defineProps({
   forceSolid: {
@@ -235,6 +234,7 @@ const router = useRouter()
 const route = useRoute()
 const isMobileMenuOpen = ref(false)
 const isScrolled = ref(false)
+const isContactModalOpen = ref(false)
 
 const phone = '(495) 725-60-06'
 const phoneRaw = '+74957256006'

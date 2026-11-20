@@ -42,7 +42,7 @@
           <div v-if="!isSubmitted">
             <div class="mb-5 pr-6">
               <h3 id="modal-title" class="text-xl font-bold text-slate-900 leading-snug">
-                Запрос коммерческого предложения
+                {{ title || (subject ? 'Запрос коммерческого предложения' : 'Связаться с нами') }}
               </h3>
               <p v-if="subject" class="text-xs text-slate-500 mt-1 leading-relaxed">
                 Направление: <span class="font-medium text-slate-700">{{ subject }}</span>
@@ -165,6 +165,10 @@ const props = defineProps({
   modelValue: {
     type: Boolean,
     default: false
+  },
+  title: {
+    type: String,
+    default: ''
   },
   subject: {
     type: String,

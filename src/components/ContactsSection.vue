@@ -4,28 +4,28 @@
       <!-- Заголовок раздела -->
       <div class="mb-8 sm:mb-10">
         <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-          Контакты и реквизиты
+          Контакты
         </h2>
       </div>
 
-      <!-- Двухколоночный блок: контакты и официальные реквизиты одинаковой высоты на десктопе -->
+      <!-- Двухколоночный блок: контакты слева, интерактивная карта офиса справа -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         <!-- Левая часть: Центральный офис -->
-        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-sm p-6 sm:p-8 flex flex-col justify-between h-full">
+        <div class="lg:col-span-5 bg-white border border-slate-200 rounded-sm p-6 sm:p-8 flex flex-col justify-between h-full shadow-sm">
           <div>
             <h3 class="text-base sm:text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">
               Центральный офис
             </h3>
 
             <div class="space-y-4 text-xs sm:text-sm text-slate-700 mt-5">
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 items-baseline">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 items-baseline">
                 <span class="text-slate-400 font-medium">Адрес:</span>
-                <span class="sm:col-span-2 font-medium text-slate-900">
+                <span class="sm:col-span-2 font-medium text-slate-900 leading-snug">
                   117393, г. Москва, ул. Профсоюзная, д. 76
                 </span>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 items-baseline">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 items-baseline">
                 <span class="text-slate-400 font-medium">Справочная служба:</span>
                 <div class="sm:col-span-2">
                   <a :href="`tel:${phoneRaw}`" class="font-bold text-slate-900 text-base hover:text-[#0093CB] transition-colors">
@@ -35,7 +35,7 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 items-baseline">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 items-baseline">
                 <span class="text-slate-400 font-medium">Электронная почта:</span>
                 <div class="sm:col-span-2">
                   <a :href="`mailto:${email}`" class="font-semibold text-[#0093CB] hover:text-[#007EAF] transition-colors">
@@ -44,7 +44,7 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 items-baseline">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 items-baseline">
                 <span class="text-slate-400 font-medium">Режим работы:</span>
                 <div class="sm:col-span-2 text-slate-800">
                   <div>Понедельник — пятница: с 09:00 до 18:00 (МСК)</div>
@@ -53,34 +53,33 @@
               </div>
             </div>
           </div>
+
+          <!-- Аккуратный блок реквизитов под контактами -->
+          <div class="mt-6 pt-5 border-t border-slate-100">
+            <details class="group text-xs text-slate-600">
+              <summary class="font-semibold text-slate-800 cursor-pointer list-none flex items-center justify-between hover:text-[#0093CB] transition-colors select-none">
+                <span>Реквизиты организации</span>
+                <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div class="mt-3 pt-3 border-t border-slate-100 space-y-2 text-[11px] leading-relaxed">
+                <div><span class="text-slate-400">Наименование:</span> ООО «Радиома оборудование связи и навигации»</div>
+                <div><span class="text-slate-400">ИНН / КПП:</span> 7728148920 / 772801001</div>
+                <div><span class="text-slate-400">ОГРН:</span> 1027700348210 &bull; <span class="text-slate-400">ОКПО:</span> 40284910</div>
+              </div>
+            </details>
+          </div>
         </div>
 
-        <!-- Правая часть: Реквизиты организации -->
-        <div class="lg:col-span-5 bg-white border border-slate-200 rounded-sm p-6 sm:p-8 flex flex-col justify-between h-full">
-          <div>
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">
-              Реквизиты организации
-            </h3>
-
-            <div class="space-y-4 text-xs sm:text-sm text-slate-700 mt-5">
-              <div class="flex justify-between border-b border-slate-100 pb-2">
-                <span class="text-slate-400">Полное наименование:</span>
-                <span class="font-semibold text-right text-slate-900 ml-2">ООО «Радиома оборудование связи и навигации»</span>
-              </div>
-              <div class="flex justify-between border-b border-slate-100 pb-2">
-                <span class="text-slate-400">ИНН / КПП:</span>
-                <span class="font-semibold text-slate-900">7728148920 / 772801001</span>
-              </div>
-              <div class="flex justify-between border-b border-slate-100 pb-2">
-                <span class="text-slate-400">ОГРН:</span>
-                <span class="font-semibold text-slate-900">1027700348210</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">ОКПО:</span>
-                <span class="font-semibold text-slate-900">40284910</span>
-              </div>
-            </div>
-          </div>
+        <!-- Правая часть: Интерактивная карта с отметкой офиса компании -->
+        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm min-h-[380px] sm:min-h-[440px] relative">
+          <iframe 
+            src="https://yandex.ru/map-widget/v1/?ll=37.5408%2C55.6548&z=16&pt=37.5408%2C55.6548,pm2blm" 
+            class="w-full h-full border-0 absolute inset-0"
+            frameborder="0"
+            allowfullscreen="true"
+            loading="lazy"
+            title="Офис ООО «Радиома» — Москва, ул. Профсоюзная, д. 76"
+          ></iframe>
         </div>
       </div>
     </div>

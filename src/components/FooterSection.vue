@@ -44,7 +44,7 @@
               class="hover:text-white transition-colors cursor-pointer"
               @click="handleNavClick('#contacts', $event)"
             >
-              Контакты и реквизиты
+              Контакты
             </a>
           </div>
         </div>

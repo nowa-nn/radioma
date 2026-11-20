@@ -22,14 +22,39 @@
         <!-- Состояние: Направление найдено -->
         <div v-if="direction" class="space-y-8">
           
-          <!-- Главный баннер раздела (без бейджа с надзаголовком) -->
-          <div class="bg-white border border-slate-200 rounded-sm p-6 sm:p-10 shadow-sm">
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
-              {{ direction.title }}
-            </h1>
-            <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-4xl">
-              {{ direction.lead }}
-            </p>
+          <!-- Главный баннер раздела с фотографией реального оборудования/объекта -->
+          <div class="bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm">
+            <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+              <div 
+                class="p-6 sm:p-10 flex flex-col justify-center"
+                :class="direction.image ? 'lg:col-span-7 xl:col-span-8' : 'lg:col-span-12'"
+              >
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
+                  {{ direction.title }}
+                </h1>
+                <p class="text-base sm:text-lg text-slate-700 leading-relaxed">
+                  {{ direction.lead }}
+                </p>
+              </div>
+
+              <!-- Фотография оборудования или морского/наземного объекта -->
+              <div 
+                v-if="direction.image" 
+                class="lg:col-span-5 xl:col-span-4 relative min-h-[240px] sm:min-h-[280px] lg:min-h-full bg-slate-900 overflow-hidden border-t lg:border-t-0 lg:border-l border-slate-100"
+              >
+                <img 
+                  :src="`${baseUrl}${direction.image}`" 
+                  :alt="direction.title" 
+                  class="w-full h-full object-cover object-center"
+                />
+                <div 
+                  v-if="direction.imageCaption" 
+                  class="absolute bottom-0 inset-x-0 bg-slate-950/85 backdrop-blur-xs text-[11px] text-slate-200 px-3.5 py-2 leading-snug border-t border-white/10"
+                >
+                  {{ direction.imageCaption }}
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Основная сетка: Детальный контент слева, Боковая панель справа -->
@@ -236,6 +261,7 @@ import FooterSection from '../components/FooterSection.vue'
 import FeedbackModal from '../components/FeedbackModal.vue'
 import directionsData from '../data/directions.json'
 
+const baseUrl = import.meta.env.BASE_URL
 const route = useRoute()
 const isModalOpen = ref(false)
 
