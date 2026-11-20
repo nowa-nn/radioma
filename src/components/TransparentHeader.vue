@@ -15,9 +15,12 @@
     <!-- Единая верхняя панель (z-10): Логотип со слоганом слева, Пункты меню по центру, Контакты справа -->
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between py-2.5 sm:py-3">
-        <!-- Логотип и слоган слева -->
-        <router-link to="/" class="flex items-center gap-3.5 flex-shrink-0">
-          <div class="relative h-13 sm:h-16 w-[116px] sm:w-[142px] flex-shrink-0">
+        <!-- Логотип слева (строго без приписки) -->
+        <router-link to="/" class="flex items-center flex-shrink-0">
+          <div 
+            class="relative h-12 sm:h-16 w-[106px] sm:w-[142px] flex-shrink-0"
+            style="min-height: 48px; min-width: 106px;"
+          >
             <!-- Белый логотип на прозрачном фоне (без рамки) -->
             <img 
               :src="`${baseUrl}logo-white.png`" 
@@ -32,21 +35,6 @@
               class="absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-300 pointer-events-none"
               :class="headerSolid ? 'opacity-100' : 'opacity-0'"
             />
-          </div>
-
-          <div class="hidden sm:block pt-0.5 transition-colors duration-300">
-            <div 
-              class="text-xs sm:text-[13px] uppercase tracking-wider font-semibold leading-tight transition-colors duration-300"
-              :class="headerSolid ? 'text-slate-900' : 'text-white'"
-            >
-              Оборудование связи и навигации
-            </div>
-            <div 
-              class="text-[10px] sm:text-[11px] leading-tight mt-0.5 transition-colors duration-300"
-              :class="headerSolid ? 'text-slate-500' : 'text-slate-300'"
-            >
-              Поставка, интеграция и сервис
-            </div>
           </div>
         </router-link>
 
@@ -207,7 +195,7 @@
             <a 
               :href="`tel:${phoneRaw}`" 
               class="text-sm font-bold transition-colors"
-              :class="headerSolid ? 'text-slate-900 hover:text-sky-700' : 'text-white hover:text-sky-300'"
+              :class="headerSolid ? 'text-slate-900 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
             >
               {{ phone }}
             </a>
@@ -217,7 +205,7 @@
             <a 
               :href="`mailto:${email}`" 
               class="text-xs font-semibold transition-colors"
-              :class="headerSolid ? 'text-slate-800 hover:text-sky-700' : 'text-white hover:text-sky-300'"
+              :class="headerSolid ? 'text-slate-800 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
             >
               {{ email }}
             </a>
