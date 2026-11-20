@@ -5,45 +5,47 @@
     @mouseenter="stopAutoplay"
     @mouseleave="startAutoplay"
   >
-    <!-- Фоновые изображения на всю ширину экрана с плавной сменой -->
-    <transition name="fade">
+    <!-- Фоновые изображения на всю ширину экрана с плавной одновременной сменой (без мерцания и задержек загрузки) -->
+    <div 
+      v-for="(slide, idx) in slides" 
+      :key="slide.id" 
+      class="absolute inset-0 w-full h-full bg-slate-950 transition-opacity duration-700 ease-in-out pointer-events-none"
+      :class="currentSlide === idx ? 'opacity-100 z-0' : 'opacity-0 -z-10'"
+    >
+      <!-- Обертка фото: на первом слайде сдвинута вправо на десктопе, открывая радиоприемник и логотип «РАДИОМА» справа -->
       <div 
-        :key="currentSlideItem.id" 
-        class="absolute inset-0 w-full h-full bg-slate-950"
+        :class="slide.imageWrapperClass || 'absolute inset-0 w-full h-full'"
+        :style="slide.id === 'company-overview' ? {
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 15%, black 35%, black 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 15%, black 35%, black 100%)'
+        } : {}"
       >
-        <!-- Обертка фото: на первом слайде сдвинута вправо на десктопе, открывая радиоприемник и логотип «РАДИОМА» справа -->
+        <img 
+          :src="slide.image" 
+          :alt="slide.title"
+          :class="slide.imageClass || 'w-full h-full object-cover object-center'"
+          :loading="idx === 0 ? 'eager' : 'lazy'"
+          :fetchpriority="idx === 0 ? 'high' : 'low'"
+        />
+
+        <!-- Дополнительный мягкий внутренний градиент слева у фото для абсолютной бесшовности -->
         <div 
-          :class="currentSlideItem.imageWrapperClass || 'absolute inset-0 w-full h-full'"
-          :style="currentSlideItem.id === 'company-overview' ? {
-            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 15%, black 35%, black 100%)',
-            maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 15%, black 35%, black 100%)'
-          } : {}"
-        >
-          <img 
-            :src="currentSlideItem.image" 
-            :alt="currentSlideItem.title"
-            :class="currentSlideItem.imageClass || 'w-full h-full object-cover object-center'"
-          />
-
-          <!-- Дополнительный мягкий внутренний градиент слева у фото для абсолютной бесшовности -->
-          <div 
-            v-if="currentSlideItem.id === 'company-overview'" 
-            class="absolute inset-y-0 left-0 w-48 sm:w-80 lg:w-96 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent pointer-events-none"
-          ></div>
-        </div>
-
-        <!-- Плавное затемнение на десктопе: глубокий темный тон слева для чтения текста, плавно переходящий в фото справа -->
-        <div class="hidden sm:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 lg:via-slate-950/60 to-transparent pointer-events-none"></div>
-        <div class="hidden sm:block absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20 pointer-events-none"></div>
-
-        <!-- Сбалансированное мягкое затемнение в мобильной версии: радиоприемник и детали фото четко видны, а текст комфортно читается -->
-        <div class="sm:hidden absolute inset-0 bg-gradient-to-r from-slate-950/65 via-slate-950/35 to-slate-950/20 pointer-events-none"></div>
-        <div class="sm:hidden absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/30 to-slate-950/15 pointer-events-none"></div>
-
-        <!-- Верхнее мягкое затемнение для прозрачного хедера -->
-        <div v-if="isTransparent" class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
+          v-if="slide.id === 'company-overview'" 
+          class="absolute inset-y-0 left-0 w-48 sm:w-80 lg:w-96 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent pointer-events-none"
+        ></div>
       </div>
-    </transition>
+
+      <!-- Плавное затемнение на десктопе: глубокий темный тон слева для чтения текста, плавно переходящий в фото справа -->
+      <div class="hidden sm:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 lg:via-slate-950/60 to-transparent pointer-events-none"></div>
+      <div class="hidden sm:block absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20 pointer-events-none"></div>
+
+      <!-- Сбалансированное мягкое затемнение в мобильной версии: радиоприемник и детали фото четко видны, а текст комфортно читается -->
+      <div class="sm:hidden absolute inset-0 bg-gradient-to-r from-slate-950/65 via-slate-950/35 to-slate-950/20 pointer-events-none"></div>
+      <div class="sm:hidden absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/30 to-slate-950/15 pointer-events-none"></div>
+
+      <!-- Верхнее мягкое затемнение для прозрачного хедера -->
+      <div v-if="isTransparent" class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
+    </div>
 
     <!-- Контент поверх затемненного изображения (всегда слева с идеальной читаемостью) -->
     <div 
@@ -210,6 +212,11 @@ function stopAutoplay() {
 }
 
 onMounted(() => {
+  // Мгновенная предзагрузка всех слайдов в кэш браузера для мгновенного переключения без ожидания сети
+  slides.forEach(slide => {
+    const img = new Image()
+    img.src = slide.image
+  })
   startAutoplay()
 })
 
