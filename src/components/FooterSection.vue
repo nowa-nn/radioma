@@ -5,7 +5,7 @@
         <!-- Логотип и статус компании -->
         <div class="md:col-span-5 space-y-3">
           <div class="flex items-center gap-3">
-            <img :src="`${baseUrl}logo-white.png`" alt="РАДИОМА" class="h-8 w-auto object-contain" />
+            <img :src="`${baseUrl}logo-white.png`" alt="РАДИОМА" class="h-10 sm:h-11 w-auto object-contain" />
             <div class="border-l border-slate-700 pl-3">
               <div class="text-[11px] uppercase tracking-wider font-semibold text-white leading-tight">
                 Оборудование связи и навигации

@@ -17,32 +17,32 @@
       <div class="flex items-center justify-between py-3 sm:py-3.5">
         <!-- Логотип и слоган слева -->
         <router-link to="/" class="flex items-center gap-3 flex-shrink-0">
-          <div class="relative h-8 sm:h-9 w-[75px] sm:w-[84px] flex-shrink-0">
+          <div class="relative h-11 sm:h-13 w-[98px] sm:w-[116px] flex-shrink-0">
             <!-- Белый логотип на прозрачном фоне (без рамки) -->
             <img 
               :src="`${baseUrl}logo-white.png`" 
               alt="РАДИОМА" 
-              class="absolute inset-0 h-full w-auto object-contain transition-opacity duration-300 pointer-events-none"
+              class="absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-300 pointer-events-none"
               :class="headerSolid ? 'opacity-0' : 'opacity-100'"
             />
             <!-- Цветной логотип на прозрачном фоне (без рамки, из logo-Photoroom) -->
             <img 
               :src="`${baseUrl}logo-transparent.png`" 
               alt="РАДИОМА" 
-              class="absolute inset-0 h-full w-auto object-contain transition-opacity duration-300 pointer-events-none"
+              class="absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-300 pointer-events-none"
               :class="headerSolid ? 'opacity-100' : 'opacity-0'"
             />
           </div>
 
           <div class="hidden sm:block pt-0.5 transition-colors duration-300">
             <div 
-              class="text-[11px] uppercase tracking-wider font-semibold leading-tight transition-colors duration-300"
+              class="text-[11px] sm:text-xs uppercase tracking-wider font-semibold leading-tight transition-colors duration-300"
               :class="headerSolid ? 'text-slate-900' : 'text-white'"
             >
               Оборудование связи и навигации
             </div>
             <div 
-              class="text-[10px] leading-tight mt-0.5 transition-colors duration-300"
+              class="text-[10px] sm:text-[11px] leading-tight mt-0.5 transition-colors duration-300"
               :class="headerSolid ? 'text-slate-500' : 'text-slate-300'"
             >
               Поставка, интеграция и сервис

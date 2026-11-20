@@ -2,12 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import TransparentView from '../views/TransparentView.vue'
 import NewsDetailView from '../views/NewsDetailView.vue'
+import DirectionDetailView from '../views/DirectionDetailView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/directions/:id',
+    name: 'direction-detail',
+    component: DirectionDetailView
   },
   {
     path: '/news/:id',

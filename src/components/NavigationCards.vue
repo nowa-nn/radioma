@@ -26,7 +26,9 @@
 
             <!-- Наименование направления (в точности по утвержденному списку) -->
             <h3 class="text-base font-bold text-slate-900 leading-snug mt-4">
-              {{ item.title }}
+              <router-link :to="`/directions/${item.id}`" class="hover:text-sky-700 transition-colors">
+                {{ item.title }}
+              </router-link>
             </h3>
 
             <!-- Краткое описание назначения и номенклатуры -->
@@ -37,12 +39,13 @@
 
           <!-- Ссылка перехода -->
           <div class="pt-4 mt-5 border-t border-slate-100">
-            <a 
-              :href="item.link" 
-              class="inline-block text-xs font-semibold text-sky-700 hover:text-sky-900 transition-colors"
+            <router-link 
+              :to="`/directions/${item.id}`" 
+              class="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-700 hover:text-sky-900 transition-colors"
             >
-              Подробнее
-            </a>
+              <span>Подробнее</span>
+              <span>→</span>
+            </router-link>
           </div>
         </article>
       </div>
