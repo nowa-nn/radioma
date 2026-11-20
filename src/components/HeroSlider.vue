@@ -1,7 +1,9 @@
 <template>
   <section 
     class="w-full relative overflow-hidden bg-slate-950 text-white"
-    :class="isTransparent ? 'h-screen min-h-[640px]' : 'h-[calc(100vh-100px)] min-h-[560px]'"
+    :class="isHalfHeight 
+      ? 'h-[50vh] min-h-[380px] sm:min-h-[420px] lg:h-[50vh]' 
+      : (isTransparent ? 'h-screen min-h-[580px] h-[100dvh]' : 'h-[calc(100vh-56px)] min-h-[560px]')"
     @mouseenter="stopAutoplay"
     @mouseleave="startAutoplay"
   >
@@ -28,14 +30,14 @@
           :fetchpriority="idx === 0 ? 'high' : 'low'"
         />
 
-        <!-- Дополнительный мягкий внутренний градиент слева у фото для абсолютной бесшовности -->
+        <!-- Дополнительный мягкий внутренний градиент слева у фото для абсолютной бесшовности (с синеватым морским оттенком) -->
         <div 
           v-if="slide.id === 'company-overview'" 
           class="absolute inset-y-0 left-0 w-48 sm:w-80 lg:w-96 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent pointer-events-none"
         ></div>
       </div>
 
-      <!-- Плавное затемнение на десктопе: глубокий темный тон слева для чтения текста, плавно переходящий в фото справа -->
+      <!-- Плавное затемнение на десктопе: глубокий тон с синеватым морским отливом слева для чтения текста, плавно переходящий в фото справа -->
       <div class="hidden sm:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 lg:via-slate-950/60 to-transparent pointer-events-none"></div>
       <div class="hidden sm:block absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20 pointer-events-none"></div>
 
@@ -50,26 +52,34 @@
     <!-- Контент поверх затемненного изображения (всегда слева с идеальной читаемостью) -->
     <div 
       class="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-center"
-      :class="isTransparent ? 'pt-24 sm:pt-28' : ''"
+      :class="isHalfHeight ? 'pt-6 pb-4' : (isTransparent ? 'pt-24 sm:pt-28' : 'pt-10')"
     >
-      <div class="max-w-2xl space-y-5 text-left">
-        <!-- Крупный заголовок слайда (на мобильных устройствах слайды 2 и 3 разбиты ровно на 3 строки) -->
+      <div 
+        class="max-w-2xl text-left"
+        :class="isHalfHeight ? 'space-y-3' : 'space-y-5'"
+      >
+        <!-- Крупный заголовок слайда -->
         <h1 
-          class="text-2xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] sm:drop-shadow-none"
+          class="font-bold text-white tracking-tight leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] sm:drop-shadow-none"
+          :class="isHalfHeight ? 'text-xl sm:text-2xl lg:text-3xl' : 'text-2xl sm:text-4xl lg:text-5xl'"
           v-html="currentSlideItem.titleHtml || currentSlideItem.title"
         ></h1>
 
         <!-- Лаконичный производственный текст -->
-        <p class="text-base sm:text-lg text-slate-100 sm:text-slate-200 leading-relaxed font-normal max-w-xl drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] sm:drop-shadow-none">
+        <p 
+          class="text-slate-100 sm:text-slate-200 leading-relaxed font-normal max-w-xl drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] sm:drop-shadow-none"
+          :class="isHalfHeight ? 'text-xs sm:text-sm line-clamp-3 sm:line-clamp-none' : 'text-base sm:text-lg'"
+        >
           {{ currentSlideItem.description }}
         </p>
 
         <!-- Кнопка перехода к информации о направлении (текст "Подробнее" или "О компании") -->
-        <div class="pt-3">
+        <div :class="isHalfHeight ? 'pt-1' : 'pt-3'">
           <a 
             v-if="currentSlideItem.link.startsWith('#')"
             :href="currentSlideItem.link"
-            class="inline-block bg-[#0093CB] hover:bg-[#007EAF] text-white text-sm font-medium px-6 py-3 rounded transition-colors shadow-sm cursor-pointer"
+            class="inline-block bg-[#0093CB] hover:bg-[#007EAF] text-white font-medium rounded transition-colors shadow-sm cursor-pointer"
+            :class="isHalfHeight ? 'text-xs px-4 py-2' : 'text-sm px-6 py-3'"
             @click="handleLinkClick(currentSlideItem.link, $event)"
           >
             {{ currentSlideItem.buttonText || 'Подробнее' }}
@@ -77,7 +87,8 @@
           <router-link 
             v-else
             :to="currentSlideItem.link"
-            class="inline-block bg-[#0093CB] hover:bg-[#007EAF] text-white text-sm font-medium px-6 py-3 rounded transition-colors shadow-sm"
+            class="inline-block bg-[#0093CB] hover:bg-[#007EAF] text-white font-medium rounded transition-colors shadow-sm"
+            :class="isHalfHeight ? 'text-xs px-4 py-2' : 'text-sm px-6 py-3'"
           >
             {{ currentSlideItem.buttonText || 'Подробнее' }}
           </router-link>
@@ -85,7 +96,10 @@
       </div>
 
       <!-- Минималистичные аккуратные полоски-индикаторы слайдов снизу слева -->
-      <div class="flex items-center gap-2.5 pt-10">
+      <div 
+        class="flex items-center gap-2.5"
+        :class="isHalfHeight ? 'pt-4' : 'pt-10'"
+      >
         <button 
           v-for="(_, idx) in slides" 
           :key="idx"
@@ -108,6 +122,10 @@ const props = defineProps({
   isTransparent: {
     type: Boolean,
     default: true
+  },
+  isHalfHeight: {
+    type: Boolean,
+    default: false
   }
 })
 

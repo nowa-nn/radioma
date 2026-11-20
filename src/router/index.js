@@ -3,12 +3,19 @@ import HomeView from '../views/HomeView.vue'
 import TransparentView from '../views/TransparentView.vue'
 import NewsDetailView from '../views/NewsDetailView.vue'
 import DirectionDetailView from '../views/DirectionDetailView.vue'
+import CompactView from '../views/CompactView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/compact',
+    name: 'compact',
+    component: CompactView,
+    alias: ['/half-hero', '/compact-hero', '/variant-2']
   },
   {
     path: '/directions/:id',
