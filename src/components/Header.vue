@@ -165,5 +165,5 @@ const isMobileMenuOpen = ref(false)
 
 const phone = '(495) 725-60-06'
 const phoneRaw = '+74957256006'
-const email = 'info@radioma.ru'
+const email = 'office@radioma.ru'
 </script>

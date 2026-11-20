@@ -21,7 +21,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 items-baseline">
                 <span class="text-slate-400 font-medium">Адрес:</span>
                 <span class="sm:col-span-2 font-medium text-slate-900 leading-snug">
-                  117393, г. Москва, ул. Профсоюзная, д. 76
+                  123104, г. Москва, ул. Малая Бронная, д. 2, стр. 1
                 </span>
               </div>
 
@@ -73,12 +73,12 @@
         <!-- Правая часть: Интерактивная карта с отметкой офиса компании -->
         <div class="lg:col-span-7 bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm min-h-[380px] sm:min-h-[440px] relative">
           <iframe 
-            src="https://yandex.ru/map-widget/v1/?ll=37.5408%2C55.6548&z=16&pt=37.5408%2C55.6548,pm2blm" 
+            src="https://yandex.ru/map-widget/v1/?ll=37.5985%2C55.7582&z=16&pt=37.5985%2C55.7582,pm2blm" 
             class="w-full h-full border-0 absolute inset-0"
             frameborder="0"
             allowfullscreen="true"
             loading="lazy"
-            title="Офис ООО «Радиома» — Москва, ул. Профсоюзная, д. 76"
+            title="Офис ООО «Радиома» — Москва, ул. Малая Бронная, д. 2, стр. 1"
           ></iframe>
         </div>
       </div>
@@ -90,5 +90,5 @@
 const phone = '(495) 725-60-06'
 const phoneRaw = '+74957256006'
 const fax = '(495) 725-60-08'
-const email = 'info@radioma.ru'
+const email = 'office@radioma.ru'
 </script>

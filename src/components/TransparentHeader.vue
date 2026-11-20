@@ -238,7 +238,7 @@ const isContactModalOpen = ref(false)
 
 const phone = '(495) 725-60-06'
 const phoneRaw = '+74957256006'
-const email = 'info@radioma.ru'
+const email = 'office@radioma.ru'
 
 const headerSolid = computed(() => {
   return props.forceSolid || (route && route.path !== '/' && route.path !== '/transparent') || isScrolled.value

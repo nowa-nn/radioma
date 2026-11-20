@@ -178,8 +178,8 @@
                     +7 (495) 725-60-06
                   </a>
                   <div class="text-slate-400 pt-1">Электронная почта:</div>
-                  <a href="mailto:info@radioma.ru" class="block font-semibold text-[#7FD3F5] hover:text-white transition-colors">
-                    info@radioma.ru
+                  <a href="mailto:office@radioma.ru" class="block font-semibold text-[#7FD3F5] hover:text-white transition-colors">
+                    office@radioma.ru
                   </a>
                 </div>
 

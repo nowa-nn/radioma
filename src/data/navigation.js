@@ -99,10 +99,10 @@ export const companyContacts = {
   tollFreePhone: '8 (800) 725-60-06',
   tollFreePhoneRaw: '+78007256006',
   fax: '(495) 725-60-08',
-  email: 'info@radioma.ru',
+  email: 'office@radioma.ru',
   workHours: 'Понедельник — пятница: с 09:00 до 18:00 (МСК)',
   weekend: 'Суббота, воскресенье: выходные дни',
-  address: '117393, г. Москва, ул. Профсоюзная, д. 76',
+  address: '123104, г. Москва, ул. Малая Бронная, д. 2, стр. 1',
   regionCenters: [
     { city: 'Москва', desc: 'Центральный офис и НТЦ' },
     { city: 'Санкт-Петербург', desc: 'Филиал морского радиооборудования' },

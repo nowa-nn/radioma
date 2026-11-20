@@ -35,6 +35,17 @@
         <!-- Плавное затемнение: глубокий темный тон слева для чтения текста, плавно переходящий в фото справа -->
         <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 lg:via-slate-950/60 to-transparent pointer-events-none"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20 pointer-events-none"></div>
+
+        <!-- Дополнительное усиленное затемнение в мобильной версии для первого слайда для идеальной читаемости текста -->
+        <div 
+          v-if="currentSlideItem.id === 'company-overview'" 
+          class="absolute inset-0 bg-slate-950/70 sm:hidden pointer-events-none"
+        ></div>
+        <div 
+          v-if="currentSlideItem.id === 'company-overview'" 
+          class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/40 sm:hidden pointer-events-none"
+        ></div>
+
         <!-- Верхнее мягкое затемнение для прозрачного хедера -->
         <div v-if="isTransparent" class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
       </div>

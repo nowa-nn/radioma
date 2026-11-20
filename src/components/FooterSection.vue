@@ -62,13 +62,13 @@
           </div>
           <div>
             <span class="block text-[10px] text-slate-500 uppercase">Электронная почта:</span>
-            <a href="mailto:info@radioma.ru" class="text-white hover:text-[#7FD3F5] transition-colors">
-              info@radioma.ru
+            <a href="mailto:office@radioma.ru" class="text-white hover:text-[#7FD3F5] transition-colors">
+              office@radioma.ru
             </a>
           </div>
           <div class="pt-1">
             <span class="block text-[10px] text-slate-500 uppercase">Центральный офис:</span>
-            <span class="text-slate-300">117393, г. Москва, ул. Профсоюзная, д. 76</span>
+            <span class="text-slate-300">123104, г. Москва, ул. Малая Бронная, д. 2, стр. 1</span>
           </div>
         </div>
       </div>
