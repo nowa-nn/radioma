@@ -1,11 +1,11 @@
 <template>
   <div class="min-h-screen bg-slate-50 font-sans antialiased text-slate-900 flex flex-col relative">
-    <!-- Классический закрепленный прозрачный хедер без синей подложки, с увеличенной высотой и логотипом из logo-photoroom, меняющим цвет при скролле -->
+    <!-- Классический белый закрепленный хедер -->
     <TransparentHeader variant="classic" />
 
-    <main class="flex-grow">
-      <!-- 1. Первый экран (HeroSlider на всю высоту экрана) -->
-      <HeroSlider :is-transparent="true" />
+    <main class="flex-grow pt-14 sm:pt-16">
+      <!-- 1. Первый экран (HeroSlider на всю высоту экрана за вычетом хедера) -->
+      <HeroSlider :is-transparent="false" />
 
       <!-- 2. Направления деятельности (#directions) -->
       <NavigationCards />

@@ -1,17 +1,22 @@
 <template>
   <section 
-    class="w-full relative overflow-hidden bg-slate-950 text-white"
+    class="w-full relative overflow-hidden bg-[#05182e] text-white touch-pan-y"
     :class="isHalfHeight 
       ? 'h-[50vh] min-h-[380px] sm:min-h-[420px] lg:h-[50vh]' 
-      : (isTransparent ? 'h-screen min-h-[580px] h-[100dvh]' : 'h-[calc(100vh-56px)] min-h-[560px]')"
+      : (isTransparent 
+          ? 'h-screen min-h-[580px] h-[100dvh]' 
+          : 'h-[calc(100vh-56px)] sm:h-[calc(100vh-64px)] h-[calc(100dvh-56px)] sm:h-[calc(100dvh-64px)] min-h-[540px]')"
     @mouseenter="stopAutoplay"
     @mouseleave="startAutoplay"
+    @touchstart.passive="handleTouchStart"
+    @touchmove.passive="handleTouchMove"
+    @touchend="handleTouchEnd"
   >
     <!-- Фоновые изображения на всю ширину экрана с плавной одновременной сменой (без мерцания и задержек загрузки) -->
     <div 
       v-for="(slide, idx) in slides" 
       :key="slide.id" 
-      class="absolute inset-0 w-full h-full bg-slate-950 transition-opacity duration-700 ease-in-out pointer-events-none"
+      class="absolute inset-0 w-full h-full bg-[#05182e] transition-opacity duration-700 ease-in-out pointer-events-none"
       :class="currentSlide === idx ? 'opacity-100 z-0' : 'opacity-0 -z-10'"
     >
       <!-- Обертка фото: на первом слайде сдвинута вправо на десктопе, открывая радиоприемник и логотип «РАДИОМА» справа -->
@@ -30,23 +35,23 @@
           :fetchpriority="idx === 0 ? 'high' : 'low'"
         />
 
-        <!-- Дополнительный мягкий внутренний градиент слева у фото для абсолютной бесшовности (с синеватым морским оттенком) -->
+        <!-- Дополнительный мягкий внутренний градиент слева у фото для абсолютной бесшовности (с глубоким синеватым морским оттенком) -->
         <div 
           v-if="slide.id === 'company-overview'" 
-          class="absolute inset-y-0 left-0 w-48 sm:w-80 lg:w-96 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent pointer-events-none"
+          class="absolute inset-y-0 left-0 w-48 sm:w-80 lg:w-96 bg-gradient-to-r from-[#05182e] via-[#05182e]/85 to-transparent pointer-events-none"
         ></div>
       </div>
 
-      <!-- Плавное затемнение на десктопе: глубокий тон с синеватым морским отливом слева для чтения текста, плавно переходящий в фото справа -->
-      <div class="hidden sm:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 lg:via-slate-950/60 to-transparent pointer-events-none"></div>
-      <div class="hidden sm:block absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20 pointer-events-none"></div>
+      <!-- Плавное затемнение на десктопе: глубокий тон с насыщенным синевато-морским оттенком слева для идеального чтения текста -->
+      <div class="hidden sm:block absolute inset-0 bg-gradient-to-r from-[#061c36] via-[#072444]/95 lg:via-[#082a4e]/70 to-transparent pointer-events-none"></div>
+      <div class="hidden sm:block absolute inset-0 bg-gradient-to-t from-[#041426]/85 via-[#061c36]/35 to-[#072444]/30 pointer-events-none"></div>
 
-      <!-- Сбалансированное мягкое затемнение в мобильной версии: радиоприемник и детали фото четко видны, а текст комфортно читается -->
-      <div class="sm:hidden absolute inset-0 bg-gradient-to-r from-slate-950/65 via-slate-950/35 to-slate-950/20 pointer-events-none"></div>
-      <div class="sm:hidden absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/30 to-slate-950/15 pointer-events-none"></div>
+      <!-- Сбалансированное мягкое затемнение в мобильной версии с синим морским оттенком -->
+      <div class="sm:hidden absolute inset-0 bg-gradient-to-r from-[#061c36]/90 via-[#072444]/65 to-[#072444]/35 pointer-events-none"></div>
+      <div class="sm:hidden absolute inset-0 bg-gradient-to-t from-[#041426]/90 via-[#061c36]/50 to-[#072444]/25 pointer-events-none"></div>
 
       <!-- Верхнее мягкое затемнение для прозрачного хедера -->
-      <div v-if="isTransparent" class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
+      <div v-if="isTransparent" class="absolute inset-0 bg-gradient-to-b from-[#041426]/85 via-transparent to-[#041426]/40 pointer-events-none"></div>
     </div>
 
     <!-- Контент поверх затемненного изображения (всегда слева с идеальной читаемостью) -->
@@ -213,6 +218,43 @@ function prevSlide() {
 
 function setSlide(index) {
   currentSlide.value = index
+}
+
+// Функционал свайпа на мобайле
+let touchStartX = 0
+let touchStartY = 0
+let touchEndX = 0
+let touchEndY = 0
+
+function handleTouchStart(e) {
+  if (!e.touches || e.touches.length === 0) return
+  touchStartX = e.touches[0].clientX
+  touchStartY = e.touches[0].clientY
+  touchEndX = touchStartX
+  touchEndY = touchStartY
+  stopAutoplay()
+}
+
+function handleTouchMove(e) {
+  if (!e.touches || e.touches.length === 0) return
+  touchEndX = e.touches[0].clientX
+  touchEndY = e.touches[0].clientY
+}
+
+function handleTouchEnd() {
+  const deltaX = touchEndX - touchStartX
+  const deltaY = touchEndY - touchStartY
+  const minSwipeDistance = 40 // минимальный порог свайпа в пикселях
+
+  // Срабатывает только при преобладании горизонтального движения (чтобы не мешать вертикальному скроллу страницы)
+  if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+    if (deltaX < 0) {
+      nextSlide()
+    } else {
+      prevSlide()
+    }
+  }
+  startAutoplay()
 }
 
 function startAutoplay() {

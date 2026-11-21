@@ -1,43 +1,55 @@
 <template>
   <header class="fixed top-0 left-0 w-full z-40">
-    <!-- Слой 1: Мягкий темный защитный градиент (плавно гаснет при скроле за 300мс без стыков, с легким синеватым морским оттенком) -->
+    <!-- Фон хедера для варианта Classic: всегда белый на десктопе; на мобайле белый при закрытом меню и черный при открытом меню -->
     <div 
-      class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/45 to-transparent transition-opacity duration-300 pointer-events-none"
-      :class="headerSolid ? 'opacity-0' : 'opacity-100'"
+      v-if="variant === 'classic'"
+      class="absolute inset-0 transition-colors duration-200 pointer-events-none"
+      :class="isMobileMenuOpen 
+        ? 'bg-slate-950 border-b border-white/10 lg:bg-white lg:border-slate-200/80 lg:shadow-[0_4px_20px_rgba(0,0,0,0.12)]' 
+        : 'bg-white shadow-[0_4px_20px_rgba(0,0,0,0.12)] border-b border-slate-200/80'"
     ></div>
 
-    <!-- Слой 2: Белый залипающий фон с тенью и нижней границей (плавно проявляется при скроле и гаснет без задержек) -->
-    <div 
-      class="absolute inset-0 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.12)] border-b border-slate-200/80 transition-opacity duration-300 pointer-events-none"
-      :class="headerSolid ? 'opacity-100' : 'opacity-0'"
-    ></div>
+    <!-- Фон хедера для стандартного варианта (shape): прозрачный сверху, залипающий белый при скролле -->
+    <template v-else>
+      <!-- Слой 1: Мягкий темный защитный градиент (плавно гаснет при скроле за 300мс) -->
+      <div 
+        class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/45 to-transparent transition-opacity duration-300 pointer-events-none"
+        :class="headerSolid ? 'opacity-0' : 'opacity-100'"
+      ></div>
 
-    <!-- Единая верхняя панель (z-10): Логотип со слоганом слева, Пункты меню по центру, Контакты справа -->
+      <!-- Слой 2: Белый залипающий фон с тенью и нижней границей при скроле -->
+      <div 
+        class="absolute inset-0 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.12)] border-b border-slate-200/80 transition-opacity duration-300 pointer-events-none"
+        :class="headerSolid ? 'opacity-100' : 'opacity-0'"
+      ></div>
+    </template>
+
+    <!-- Единая верхняя панель (z-10): Логотип слева, Пункты меню по центру, Контакты справа -->
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div 
         class="flex items-center justify-between transition-all duration-200"
         :class="variant === 'classic' ? 'h-14 sm:h-16' : 'h-12 sm:h-14'"
       >
-        <!-- Вариант 1 (Classic): Уменьшенный аккуратный логотип без шейпа, меняет цвет при начале скролла -->
+        <!-- Вариант 1 (Classic): Логотип без шейпа (всегда цветной на десктопе, а на мобайле меняется на белый при открытии меню) -->
         <router-link 
           v-if="variant === 'classic'"
           to="/" 
           class="relative flex items-center flex-shrink-0 h-7 sm:h-9 w-[105px] sm:w-[135px] z-20 group"
           aria-label="РАДИОМА"
         >
-          <!-- Белый логотип на прозрачном хедере (logo-photoroom-white.png) -->
+          <!-- Белый логотип: показывается на мобайле только когда открыто черное бургер-меню -->
           <img 
             :src="`${baseUrl}logo-photoroom-white.png`" 
             alt="РАДИОМА" 
-            class="absolute inset-0 h-full w-auto object-contain object-left transition-opacity duration-300 pointer-events-none select-none"
-            :class="headerSolid ? 'opacity-0' : 'opacity-100'"
+            class="absolute inset-0 h-full w-auto object-contain object-left transition-opacity duration-200 pointer-events-none select-none"
+            :class="isMobileMenuOpen ? 'block lg:hidden' : 'hidden'"
           />
-          <!-- Цветной логотип на белом хедере при скролле (logo-photoroom.png) -->
+          <!-- Цветной логотип: всегда на десктопе, и на мобайле при закрытом белом хедере -->
           <img 
             :src="`${baseUrl}logo-photoroom.png`" 
             alt="РАДИОМА" 
-            class="absolute inset-0 h-full w-auto object-contain object-left transition-opacity duration-300 pointer-events-none select-none"
-            :class="headerSolid ? 'opacity-100' : 'opacity-0'"
+            class="absolute inset-0 h-full w-auto object-contain object-left transition-opacity duration-200 pointer-events-none select-none"
+            :class="isMobileMenuOpen ? 'hidden lg:block' : 'block'"
           />
         </router-link>
 
@@ -66,7 +78,7 @@
           <a 
             href="#about" 
             class="transition-colors whitespace-nowrap cursor-pointer"
-            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
+            :class="(variant === 'classic' || headerSolid) ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
             @click="handleNavClick('#about', $event)"
           >
             О компании
@@ -74,7 +86,7 @@
           <a 
             href="#directions" 
             class="transition-colors whitespace-nowrap cursor-pointer"
-            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
+            :class="(variant === 'classic' || headerSolid) ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
             @click="handleNavClick('#directions', $event)"
           >
             Направления
@@ -82,7 +94,7 @@
           <a 
             href="#news" 
             class="transition-colors whitespace-nowrap cursor-pointer"
-            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
+            :class="(variant === 'classic' || headerSolid) ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
             @click="handleNavClick('#news', $event)"
           >
             Новости
@@ -90,24 +102,29 @@
           <a 
             href="#contacts" 
             class="transition-colors whitespace-nowrap cursor-pointer"
-            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
+            :class="(variant === 'classic' || headerSolid) ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
             @click="handleNavClick('#contacts', $event)"
           >
             Контакты
           </a>
         </nav>
 
-        <!-- Контакты справа (Десктоп): Телефон без «Справочная служба:» и кнопка «Связаться» -->
+        <!-- Контакты справа (Десктоп): Телефон с подписью 10:00 - 18:00 по МСК и кнопка «Связаться» -->
         <div class="hidden md:flex items-center gap-5 lg:gap-6 text-right flex-shrink-0">
-          <!-- Телефон: строго +7 (495) 725-6006 без подписи -->
-          <div class="flex items-center whitespace-nowrap">
+          <div class="flex flex-col items-end whitespace-nowrap">
             <a 
               :href="`tel:${phoneRaw}`" 
               class="text-sm sm:text-base font-bold transition-colors whitespace-nowrap leading-tight"
-              :class="headerSolid ? 'text-slate-900 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
+              :class="(variant === 'classic' || headerSolid) ? 'text-slate-900 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
             >
               {{ phone }}
             </a>
+            <span 
+              class="text-[11px] font-medium leading-none mt-1 transition-colors"
+              :class="(variant === 'classic' || headerSolid) ? 'text-slate-500' : 'text-slate-300'"
+            >
+              10:00 - 18:00 по МСК
+            </span>
           </div>
 
           <!-- Кнопка «Связаться» -->
@@ -120,12 +137,14 @@
           </button>
         </div>
 
-        <!-- Мобильная правая часть: только бургер-кнопка (без подложки) -->
+        <!-- Мобильная правая часть: только бургер-кнопка -->
         <div class="flex items-center lg:hidden">
           <button 
             type="button" 
-            class="flex items-center justify-center p-1 focus:outline-none transition-colors duration-300 cursor-pointer"
-            :class="headerSolid ? 'text-slate-900 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
+            class="flex items-center justify-center p-1 focus:outline-none transition-colors duration-200 cursor-pointer"
+            :class="variant === 'classic' 
+              ? (isMobileMenuOpen ? 'text-white hover:text-[#7FD3F5]' : 'text-slate-900 hover:text-[#0093CB]') 
+              : (headerSolid ? 'text-slate-900 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]')"
             :aria-expanded="isMobileMenuOpen"
             aria-label="Меню навигации"
             @click="isMobileMenuOpen = !isMobileMenuOpen"
@@ -143,7 +162,7 @@
       </div>
     </div>
 
-    <!-- Мобильное выпадающее меню: цвет фона синхронизирован с фоном хедера -->
+    <!-- Мобильное выпадающее меню -->
     <transition
       enter-active-class="transition duration-200 ease-out"
       enter-from-class="opacity-0 -translate-y-2"
@@ -154,16 +173,21 @@
     >
       <div 
         v-if="isMobileMenuOpen" 
-        class="relative z-10 lg:hidden border-t px-5 py-4 space-y-4 transition-colors duration-300"
-        :class="headerSolid 
-          ? 'bg-white border-slate-200 text-slate-900 shadow-xl' 
-          : 'bg-slate-950/95 backdrop-blur-md border-white/10 text-white shadow-2xl'"
+        class="relative z-10 lg:hidden border-t px-5 py-4 space-y-4 transition-colors duration-200"
+        :class="variant === 'classic' 
+          ? 'bg-slate-950 border-white/10 text-white shadow-2xl' 
+          : (headerSolid 
+              ? 'bg-white border-slate-200 text-slate-900 shadow-xl' 
+              : 'bg-slate-950/95 backdrop-blur-md border-white/10 text-white shadow-2xl')"
       >
-        <nav class="flex flex-col" :class="headerSolid ? 'divide-y divide-slate-100' : 'divide-y divide-white/10'">
+        <nav 
+          class="flex flex-col" 
+          :class="(variant === 'classic' || !headerSolid) ? 'divide-y divide-white/10' : 'divide-y divide-slate-100'"
+        >
           <a 
             href="#about" 
             class="py-2.5 text-base font-semibold transition-colors cursor-pointer"
-            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
+            :class="(variant === 'classic' || !headerSolid) ? 'text-slate-100 hover:text-[#7FD3F5]' : 'text-slate-950 hover:text-[#0093CB]'"
             @click="handleNavClick('#about', $event)"
           >
             О компании
@@ -171,7 +195,7 @@
           <a 
             href="#directions" 
             class="py-2.5 text-base font-semibold transition-colors cursor-pointer"
-            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
+            :class="(variant === 'classic' || !headerSolid) ? 'text-slate-100 hover:text-[#7FD3F5]' : 'text-slate-950 hover:text-[#0093CB]'"
             @click="handleNavClick('#directions', $event)"
           >
             Направления
@@ -179,7 +203,7 @@
           <a 
             href="#news" 
             class="py-2.5 text-base font-semibold transition-colors cursor-pointer"
-            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
+            :class="(variant === 'classic' || !headerSolid) ? 'text-slate-100 hover:text-[#7FD3F5]' : 'text-slate-950 hover:text-[#0093CB]'"
             @click="handleNavClick('#news', $event)"
           >
             Новости
@@ -187,26 +211,32 @@
           <a 
             href="#contacts" 
             class="py-2.5 text-base font-semibold transition-colors cursor-pointer"
-            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
+            :class="(variant === 'classic' || !headerSolid) ? 'text-slate-100 hover:text-[#7FD3F5]' : 'text-slate-950 hover:text-[#0093CB]'"
             @click="handleNavClick('#contacts', $event)"
           >
             Контакты
           </a>
         </nav>
 
-        <!-- Контактная информация внутри мобильного меню (без подписи «Справочная служба:») -->
+        <!-- Контактная информация внутри мобильного меню с подписью 10:00 - 18:00 по МСК -->
         <div 
-          class="pt-3 border-t space-y-3 text-xs transition-colors duration-300"
-          :class="headerSolid ? 'border-slate-200 text-slate-600' : 'border-white/10 text-slate-300'"
+          class="pt-3 border-t space-y-3 text-xs transition-colors duration-200"
+          :class="(variant === 'classic' || !headerSolid) ? 'border-white/10 text-slate-300' : 'border-slate-200 text-slate-600'"
         >
           <div>
             <a 
               :href="`tel:${phoneRaw}`" 
               class="text-base font-bold transition-colors"
-              :class="headerSolid ? 'text-slate-900 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
+              :class="(variant === 'classic' || !headerSolid) ? 'text-white hover:text-[#7FD3F5]' : 'text-slate-900 hover:text-[#0093CB]'"
             >
               {{ phone }}
             </a>
+            <div 
+              class="text-[11px] font-medium transition-colors mt-0.5"
+              :class="(variant === 'classic' || !headerSolid) ? 'text-slate-400' : 'text-slate-500'"
+            >
+              10:00 - 18:00 по МСК
+            </div>
           </div>
           <div>
             <button 

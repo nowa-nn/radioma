@@ -23,13 +23,13 @@
           </p>
         </div>
 
-        <!-- Правая колонка: Изображение сертификата (без подложки, высота равна тексту) -->
-        <div class="lg:col-span-4 flex items-center justify-start lg:justify-end">
+        <!-- Правая колонка: Изображение сертификата (по центру на мобайле, по правому краю на десктопе) -->
+        <div class="lg:col-span-4 flex items-center justify-center lg:justify-end w-full">
           <img 
             :src="`${baseUrl}certificate-2017.jpg`" 
             alt="Свидетельство о признании изготовителя 2017" 
             :style="isDesktop && textHeight ? { height: `${textHeight}px` } : {}"
-            class="w-auto object-contain max-h-[380px] lg:max-h-none"
+            class="w-auto object-contain max-h-[380px] lg:max-h-none mx-auto lg:mx-0"
           />
         </div>
       </div>

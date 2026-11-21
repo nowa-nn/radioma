@@ -10,18 +10,18 @@
 
       <!-- Двухколоночный блок: контакты слева, интерактивная карта офиса справа -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        <!-- Левая часть: Центральный офис -->
-        <div class="lg:col-span-5 bg-white border border-slate-200 rounded-sm p-6 sm:p-8 flex flex-col justify-between h-full shadow-sm">
+        <!-- Левая часть: Центральный офис (увеличенная ширина карточки на десктопе) -->
+        <div class="lg:col-span-6 bg-white border border-slate-200 rounded-sm p-6 sm:p-8 flex flex-col justify-between h-full shadow-sm">
           <div>
             <h3 class="text-base sm:text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">
               Центральный офис
             </h3>
 
             <div class="space-y-4 text-xs sm:text-sm text-slate-700 mt-5">
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 items-baseline">
+              <div class="grid grid-cols-1 sm:grid-cols-[110px_1fr] gap-1 sm:gap-2 items-baseline">
                 <span class="text-slate-400 font-medium">Адрес:</span>
-                <span class="sm:col-span-2 font-medium text-slate-900 leading-snug">
-                  123104, г. Москва, ул. Малая Бронная, д. 2, стр. 1
+                <div class="font-medium text-slate-900 leading-snug">
+                  <span class="lg:whitespace-nowrap">123104, г. Москва, ул. Малая Бронная, д. 2, стр. 1</span>
                   <a 
                     href="https://yandex.ru/maps/?text=123104%2C%20%D0%B3.%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9C%D0%B0%D0%BB%D0%B0%D1%8F%20%D0%91%D1%80%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%2C%20%D0%B4.%202%2C%20%D1%81%D1%82%D1%80.%201" 
                     target="_blank" 
@@ -30,12 +30,12 @@
                   >
                     Показать на Яндекс.Картах →
                   </a>
-                </span>
+                </div>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 items-baseline">
+              <div class="grid grid-cols-1 sm:grid-cols-[110px_1fr] gap-1 sm:gap-2 items-baseline">
                 <span class="text-slate-400 font-medium">Телефон:</span>
-                <div class="sm:col-span-2">
+                <div>
                   <a :href="`tel:${phoneRaw}`" class="font-bold text-slate-900 text-base hover:text-[#0093CB] transition-colors">
                     {{ phone }}
                   </a>
@@ -43,18 +43,18 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 items-baseline">
+              <div class="grid grid-cols-1 sm:grid-cols-[110px_1fr] gap-1 sm:gap-2 items-baseline">
                 <span class="text-slate-400 font-medium">Электронная почта:</span>
-                <div class="sm:col-span-2">
+                <div>
                   <a :href="`mailto:${email}`" class="font-semibold text-[#0093CB] hover:text-[#007EAF] transition-colors">
                     {{ email }}
                   </a>
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 items-baseline">
+              <div class="grid grid-cols-1 sm:grid-cols-[110px_1fr] gap-1 sm:gap-2 items-baseline">
                 <span class="text-slate-400 font-medium">Режим работы:</span>
-                <div class="sm:col-span-2 text-slate-800">
+                <div class="text-slate-800">
                   <div>Понедельник — пятница: с 09:00 до 18:00 (МСК)</div>
                   <div class="text-xs text-slate-500 mt-0.5">Суббота, воскресенье: выходные дни</div>
                 </div>
@@ -79,7 +79,7 @@
         </div>
 
         <!-- Правая часть: Интерактивная карта с отметкой офиса компании -->
-        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm min-h-[380px] sm:min-h-[440px] relative">
+        <div class="lg:col-span-6 bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm min-h-[380px] sm:min-h-[440px] relative">
           <iframe 
             src="https://yandex.ru/map-widget/v1/?ll=37.598185%2C55.759081&z=17&pt=37.598185%2C55.759081,pm2blm" 
             class="w-full h-full border-0 absolute inset-0"
