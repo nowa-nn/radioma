@@ -19,6 +19,13 @@
           </div>
           <div class="flex flex-col space-y-2 text-slate-300">
             <a 
+              href="#about" 
+              class="hover:text-white transition-colors cursor-pointer"
+              @click="handleNavClick('#about', $event)"
+            >
+              О компании
+            </a>
+            <a 
               href="#directions" 
               class="hover:text-white transition-colors cursor-pointer"
               @click="handleNavClick('#directions', $event)"
@@ -31,13 +38,6 @@
               @click="handleNavClick('#news', $event)"
             >
               Новости
-            </a>
-            <a 
-              href="#about" 
-              class="hover:text-white transition-colors cursor-pointer"
-              @click="handleNavClick('#about', $event)"
-            >
-              О компании
             </a>
             <a 
               href="#contacts" 
@@ -55,9 +55,9 @@
             Связь с предприятием
           </div>
           <div>
-            <span class="block text-[10px] text-slate-500 uppercase">Справочная служба:</span>
+            <span class="block text-[10px] text-slate-500 uppercase">Телефон:</span>
             <a href="tel:+74957256006" class="text-white font-bold hover:text-[#7FD3F5] transition-colors">
-              (495) 725-60-06
+              +7 (495) 725-6006
             </a>
           </div>
           <div>

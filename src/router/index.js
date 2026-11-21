@@ -4,6 +4,7 @@ import TransparentView from '../views/TransparentView.vue'
 import NewsDetailView from '../views/NewsDetailView.vue'
 import DirectionDetailView from '../views/DirectionDetailView.vue'
 import CompactView from '../views/CompactView.vue'
+import ClassicView from '../views/ClassicView.vue'
 
 const routes = [
   {
@@ -16,6 +17,12 @@ const routes = [
     name: 'compact',
     component: CompactView,
     alias: ['/half-hero', '/compact-hero', '/variant-2']
+  },
+  {
+    path: '/classic',
+    name: 'classic',
+    component: ClassicView,
+    alias: ['/variant-3', '/standard', '/classic-header']
   },
   {
     path: '/directions/:id',

@@ -14,14 +14,41 @@
 
     <!-- Единая верхняя панель (z-10): Логотип со слоганом слева, Пункты меню по центру, Контакты справа -->
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-12 sm:h-14">
-        <!-- Логотип слева на отдельном свисающем шейпе (свисает с верхней границы хедера) -->
+      <div 
+        class="flex items-center justify-between transition-all duration-200"
+        :class="variant === 'classic' ? 'h-14 sm:h-16' : 'h-12 sm:h-14'"
+      >
+        <!-- Вариант 1 (Classic): Уменьшенный аккуратный логотип без шейпа, меняет цвет при начале скролла -->
         <router-link 
+          v-if="variant === 'classic'"
+          to="/" 
+          class="relative flex items-center flex-shrink-0 h-7 sm:h-9 w-[105px] sm:w-[135px] z-20 group"
+          aria-label="РАДИОМА"
+        >
+          <!-- Белый логотип на прозрачном хедере (logo-photoroom-white.png) -->
+          <img 
+            :src="`${baseUrl}logo-photoroom-white.png`" 
+            alt="РАДИОМА" 
+            class="absolute inset-0 h-full w-auto object-contain object-left transition-opacity duration-300 pointer-events-none select-none"
+            :class="headerSolid ? 'opacity-0' : 'opacity-100'"
+          />
+          <!-- Цветной логотип на белом хедере при скролле (logo-photoroom.png) -->
+          <img 
+            :src="`${baseUrl}logo-photoroom.png`" 
+            alt="РАДИОМА" 
+            class="absolute inset-0 h-full w-auto object-contain object-left transition-opacity duration-300 pointer-events-none select-none"
+            :class="headerSolid ? 'opacity-100' : 'opacity-0'"
+          />
+        </router-link>
+
+        <!-- Вариант 2 (Shape): Логотип слева на отдельном свисающем синем шейпе -->
+        <router-link 
+          v-else
           to="/" 
           class="relative flex-shrink-0 h-12 sm:h-14 w-[8.625rem] sm:w-[11rem] lg:w-[12.75rem] z-20 group"
-          aria-label="ООО «Радиома»"
+          aria-label="РАДИОМА"
         >
-          <!-- Свисающий шейп: прикреплен к top-0, по высоте больше хедера, со скругленным низом как на макете -->
+          <!-- Свисающий шейп: прикреплен к top-0, по высоте больше хедера, со скругленным низом -->
           <div 
             class="absolute top-0 left-0 w-full h-[4.875rem] sm:h-[6rem] lg:h-[6.75rem] bg-[#0093CB] rounded-b-xl sm:rounded-b-3xl shadow-[0_8px_20px_rgba(0,0,0,0.22)] border-x border-b border-[#007EAF] flex items-center justify-center px-3 sm:px-4.5 pt-1.5 sm:pt-2.5 pb-3 sm:pb-4 transition-all duration-200"
           >
@@ -34,8 +61,16 @@
           </div>
         </router-link>
 
-        <!-- Пункты меню по центру между слоганом и номером телефона (Десктоп: увеличенные и более контрастные) -->
+        <!-- Пункты меню по центру: 1. О компании, 2. Направления, 3. Новости, 4. Контакты (Десктоп) -->
         <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm sm:text-[15px] font-semibold transition-colors duration-300 px-4">
+          <a 
+            href="#about" 
+            class="transition-colors whitespace-nowrap cursor-pointer"
+            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
+            @click="handleNavClick('#about', $event)"
+          >
+            О компании
+          </a>
           <a 
             href="#directions" 
             class="transition-colors whitespace-nowrap cursor-pointer"
@@ -53,14 +88,6 @@
             Новости
           </a>
           <a 
-            href="#about" 
-            class="transition-colors whitespace-nowrap cursor-pointer"
-            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
-            @click="handleNavClick('#about', $event)"
-          >
-            О компании
-          </a>
-          <a 
             href="#contacts" 
             class="transition-colors whitespace-nowrap cursor-pointer"
             :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5] drop-shadow'"
@@ -70,26 +97,20 @@
           </a>
         </nav>
 
-        <!-- Контакты справа (Десктоп): Телефон и кнопка «Связаться» -->
+        <!-- Контакты справа (Десктоп): Телефон без «Справочная служба:» и кнопка «Связаться» -->
         <div class="hidden md:flex items-center gap-5 lg:gap-6 text-right flex-shrink-0">
-          <!-- Телефон -->
-          <div class="flex flex-col whitespace-nowrap">
-            <span 
-              class="text-[10px] leading-none transition-colors duration-300"
-              :class="headerSolid ? 'text-slate-400' : 'text-slate-300'"
-            >
-              Справочная служба:
-            </span>
+          <!-- Телефон: строго +7 (495) 725-6006 без подписи -->
+          <div class="flex items-center whitespace-nowrap">
             <a 
               :href="`tel:${phoneRaw}`" 
-              class="text-xs sm:text-sm font-bold transition-colors whitespace-nowrap leading-tight mt-0.5"
+              class="text-sm sm:text-base font-bold transition-colors whitespace-nowrap leading-tight"
               :class="headerSolid ? 'text-slate-900 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
             >
               {{ phone }}
             </a>
           </div>
 
-          <!-- Кнопка «Связаться» вместо электронной почты -->
+          <!-- Кнопка «Связаться» -->
           <button 
             type="button" 
             class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-sm transition-all duration-200 cursor-pointer shadow-sm text-white bg-[#0093CB] hover:bg-[#007EAF] active:translate-y-px"
@@ -140,6 +161,14 @@
       >
         <nav class="flex flex-col" :class="headerSolid ? 'divide-y divide-slate-100' : 'divide-y divide-white/10'">
           <a 
+            href="#about" 
+            class="py-2.5 text-base font-semibold transition-colors cursor-pointer"
+            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
+            @click="handleNavClick('#about', $event)"
+          >
+            О компании
+          </a>
+          <a 
             href="#directions" 
             class="py-2.5 text-base font-semibold transition-colors cursor-pointer"
             :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
@@ -156,14 +185,6 @@
             Новости
           </a>
           <a 
-            href="#about" 
-            class="py-2.5 text-base font-semibold transition-colors cursor-pointer"
-            :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
-            @click="handleNavClick('#about', $event)"
-          >
-            О компании
-          </a>
-          <a 
             href="#contacts" 
             class="py-2.5 text-base font-semibold transition-colors cursor-pointer"
             :class="headerSolid ? 'text-slate-950 hover:text-[#0093CB]' : 'text-slate-100 hover:text-[#7FD3F5]'"
@@ -173,16 +194,15 @@
           </a>
         </nav>
 
-        <!-- Контактная информация внутри мобильного меню -->
+        <!-- Контактная информация внутри мобильного меню (без подписи «Справочная служба:») -->
         <div 
           class="pt-3 border-t space-y-3 text-xs transition-colors duration-300"
           :class="headerSolid ? 'border-slate-200 text-slate-600' : 'border-white/10 text-slate-300'"
         >
           <div>
-            <span class="text-[10px] text-slate-400 block uppercase tracking-wider">Справочная служба:</span>
             <a 
               :href="`tel:${phoneRaw}`" 
-              class="text-sm font-bold transition-colors"
+              class="text-base font-bold transition-colors"
               :class="headerSolid ? 'text-slate-900 hover:text-[#0093CB]' : 'text-white hover:text-[#7FD3F5]'"
             >
               {{ phone }}
@@ -222,6 +242,10 @@ const props = defineProps({
   forceSolid: {
     type: Boolean,
     default: false
+  },
+  variant: {
+    type: String,
+    default: 'shape' // 'shape' (свисающий синий шейп) | 'classic' (без шейпа, смена цвета логотипа)
   }
 })
 
@@ -232,12 +256,13 @@ const isMobileMenuOpen = ref(false)
 const isScrolled = ref(false)
 const isContactModalOpen = ref(false)
 
-const phone = '(495) 725-60-06'
+const phone = '+7 (495) 725-6006'
 const phoneRaw = '+74957256006'
 const email = 'office@radioma.ru'
 
 const headerSolid = computed(() => {
-  return props.forceSolid || (route && route.path !== '/' && route.path !== '/transparent') || isScrolled.value
+  const isTransparentRoute = route && ['/', '/transparent', '/classic', '/variant-3', '/standard'].includes(route.path)
+  return props.forceSolid || !isTransparentRoute || isScrolled.value
 })
 
 function handleScroll() {
@@ -250,7 +275,8 @@ function handleNavClick(hash, event) {
   }
   isMobileMenuOpen.value = false
 
-  if (route.path === '/' || route.path === '') {
+  const isCurrentPageOneOfHomes = ['/', '', '/classic', '/compact', '/variant-2', '/variant-3', '/transparent'].includes(route.path)
+  if (isCurrentPageOneOfHomes) {
     const target = document.querySelector(hash)
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' })
@@ -259,7 +285,8 @@ function handleNavClick(hash, event) {
     }
   }
 
-  router.push({ path: '/', hash })
+  const basePath = route.path.startsWith('/classic') ? '/classic' : (route.path.startsWith('/compact') ? '/compact' : '/')
+  router.push({ path: basePath, hash })
 }
 
 onMounted(() => {

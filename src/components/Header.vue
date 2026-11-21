@@ -18,10 +18,9 @@
 
         <!-- Контакты справа (Десктоп): Телефон + Электронная почта -->
         <div class="hidden md:flex items-center gap-6 sm:gap-8 text-right">
-          <!-- Телефон -->
-          <div class="flex flex-col whitespace-nowrap">
-            <span class="text-[10px] text-slate-400 leading-none">Справочная служба:</span>
-            <a :href="`tel:${phoneRaw}`" class="text-xs sm:text-sm font-bold text-slate-900 hover:text-sky-700 transition-colors whitespace-nowrap leading-tight mt-0.5">
+          <!-- Телефон (без «Справочная служба:») -->
+          <div class="flex items-center whitespace-nowrap">
+            <a :href="`tel:${phoneRaw}`" class="text-xs sm:text-sm font-bold text-slate-900 hover:text-sky-700 transition-colors whitespace-nowrap leading-tight">
               {{ phone }}
             </a>
           </div>
@@ -138,13 +137,11 @@
         <!-- Контактная информация внутри мобильного меню -->
         <div class="pt-3 border-t border-slate-200 space-y-2 text-xs text-slate-600">
           <div>
-            <span class="text-[10px] text-slate-400 block uppercase tracking-wider">Справочная служба:</span>
             <a :href="`tel:${phoneRaw}`" class="text-sm font-bold text-slate-900 hover:text-sky-700">
               {{ phone }}
             </a>
           </div>
           <div>
-            <span class="text-[10px] text-slate-400 block uppercase tracking-wider">Электронная почта:</span>
             <a :href="`mailto:${email}`" class="text-xs font-semibold text-slate-800 hover:text-sky-700">
               {{ email }}
             </a>
@@ -163,7 +160,7 @@ import { ref } from 'vue'
 
 const isMobileMenuOpen = ref(false)
 
-const phone = '(495) 725-60-06'
+const phone = '+7 (495) 725-6006'
 const phoneRaw = '+74957256006'
 const email = 'office@radioma.ru'
 </script>

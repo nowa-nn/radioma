@@ -22,11 +22,19 @@
                 <span class="text-slate-400 font-medium">Адрес:</span>
                 <span class="sm:col-span-2 font-medium text-slate-900 leading-snug">
                   123104, г. Москва, ул. Малая Бронная, д. 2, стр. 1
+                  <a 
+                    href="https://yandex.ru/maps/?text=123104%2C%20%D0%B3.%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9C%D0%B0%D0%BB%D0%B0%D1%8F%20%D0%91%D1%80%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%2C%20%D0%B4.%202%2C%20%D1%81%D1%82%D1%80.%201" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="block text-xs font-normal text-[#0093CB] hover:underline mt-1"
+                  >
+                    Показать на Яндекс.Картах →
+                  </a>
                 </span>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 items-baseline">
-                <span class="text-slate-400 font-medium">Справочная служба:</span>
+                <span class="text-slate-400 font-medium">Телефон:</span>
                 <div class="sm:col-span-2">
                   <a :href="`tel:${phoneRaw}`" class="font-bold text-slate-900 text-base hover:text-[#0093CB] transition-colors">
                     {{ phone }}
@@ -73,12 +81,11 @@
         <!-- Правая часть: Интерактивная карта с отметкой офиса компании -->
         <div class="lg:col-span-7 bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm min-h-[380px] sm:min-h-[440px] relative">
           <iframe 
-            src="https://yandex.ru/map-widget/v1/?ll=37.5985%2C55.7582&z=16&pt=37.5985%2C55.7582,pm2blm" 
+            src="https://yandex.ru/map-widget/v1/?ll=37.598185%2C55.759081&z=17&pt=37.598185%2C55.759081,pm2blm" 
             class="w-full h-full border-0 absolute inset-0"
             frameborder="0"
             allowfullscreen="true"
-            loading="lazy"
-            title="Офис ООО «Радиома» — Москва, ул. Малая Бронная, д. 2, стр. 1"
+            title="Офис компании РАДИОМА — Москва, ул. Малая Бронная, д. 2, стр. 1"
           ></iframe>
         </div>
       </div>
@@ -87,7 +94,7 @@
 </template>
 
 <script setup>
-const phone = '(495) 725-60-06'
+const phone = '+7 (495) 725-6006'
 const phoneRaw = '+74957256006'
 const fax = '(495) 725-60-08'
 const email = 'office@radioma.ru'
