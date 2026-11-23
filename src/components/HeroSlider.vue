@@ -267,7 +267,7 @@ function handleLinkClick(hash, event) {
       return
     }
   }
-  const basePath = isClassic.value ? '/classic' : '/'
+  const basePath = '/'
   router.push({ path: basePath, hash })
 }
 

@@ -10,7 +10,8 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: ClassicView,
+    alias: ['/classic', '/variant-3', '/standard', '/classic-header']
   },
   {
     path: '/compact',
@@ -19,10 +20,10 @@ const routes = [
     alias: ['/half-hero', '/compact-hero', '/variant-2']
   },
   {
-    path: '/classic',
-    name: 'classic',
-    component: ClassicView,
-    alias: ['/variant-3', '/standard', '/classic-header']
+    path: '/transparent',
+    name: 'transparent',
+    component: TransparentView,
+    alias: ['/transparent-header', '/default']
   },
   {
     path: '/directions/:id',
@@ -33,12 +34,6 @@ const routes = [
     path: '/news/:id',
     name: 'news-detail',
     component: NewsDetailView
-  },
-  {
-    path: '/transparent',
-    name: 'transparent',
-    component: TransparentView,
-    alias: '/transparent-header'
   },
   {
     path: '/:pathMatch(.*)*',

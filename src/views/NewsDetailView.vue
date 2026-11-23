@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-slate-50 font-sans antialiased text-slate-900 flex flex-col relative">
     <!-- Шапка сайта (на внутренней странице автоматически работает в белом солидном режиме) -->
-    <TransparentHeader :force-solid="true" />
+    <TransparentHeader :force-solid="true" variant="classic" />
 
     <main class="flex-grow pt-28 sm:pt-36 pb-16">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

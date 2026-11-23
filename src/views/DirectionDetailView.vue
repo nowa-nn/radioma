@@ -1,16 +1,16 @@
 <template>
   <div class="min-h-screen bg-slate-50 font-sans antialiased text-slate-900 flex flex-col relative">
     <!-- Шапка сайта (на внутренней странице работает в белом фиксированном режиме) -->
-    <TransparentHeader :force-solid="true" :variant="isFromClassic ? 'classic' : 'shape'" />
+    <TransparentHeader :force-solid="true" variant="classic" />
 
     <main class="flex-grow pt-28 sm:pt-36 pb-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Навигационные хлебные крошки (Breadcrumbs) -->
         <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 flex-wrap">
-          <router-link :to="isFromClassic ? '/classic' : '/'" class="hover:text-slate-900 transition-colors">Главная</router-link>
+          <router-link to="/" class="hover:text-slate-900 transition-colors">Главная</router-link>
           <span>/</span>
-          <router-link :to="isFromClassic ? { path: '/classic', hash: '#directions' } : { path: '/', hash: '#directions' }" class="hover:text-slate-900 transition-colors">
+          <router-link :to="{ path: '/', hash: '#directions' }" class="hover:text-slate-900 transition-colors">
             Направления деятельности
           </router-link>
           <span>/</span>

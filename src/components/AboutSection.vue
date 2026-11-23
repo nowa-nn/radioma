@@ -44,8 +44,10 @@
           <img 
             :src="`${baseUrl}certificate-2017.jpg`" 
             alt="Свидетельство о признании изготовителя 2017" 
+            width="719"
+            height="1024"
             :style="isDesktop && textHeight ? { height: `${textHeight}px` } : {}"
-            class="w-auto object-contain max-h-[380px] lg:max-h-none mx-auto lg:mx-0"
+            class="w-auto aspect-[719/1024] object-contain max-h-[380px] lg:max-h-none mx-auto lg:mx-0 shadow-sm border border-slate-200 rounded-sm"
           />
         </div>
       </div>

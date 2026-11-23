@@ -14,3 +14,6 @@ scripts/
 /РОМЕ/
 /POME/
 tools/pome_thumbs/
+old_site_backup/
+*.tar.gz
+
