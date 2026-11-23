@@ -60,19 +60,19 @@
       :class="isHalfHeight ? 'pt-6 pb-4' : (isTransparent ? 'pt-24 sm:pt-28' : 'pt-10')"
     >
       <div 
-        class="max-w-2xl text-left"
+        class="w-full max-w-none sm:max-w-2xl text-left"
         :class="isHalfHeight ? 'space-y-3' : 'space-y-5'"
       >
         <!-- Крупный заголовок слайда -->
         <h1 
           class="font-bold text-white tracking-tight leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] sm:drop-shadow-none"
-          :class="isHalfHeight ? 'text-xl sm:text-2xl lg:text-3xl' : 'text-2xl sm:text-4xl lg:text-5xl'"
+          :class="isHalfHeight ? 'text-xl sm:text-2xl lg:text-3xl' : 'text-[22px] min-[400px]:text-2xl sm:text-4xl lg:text-5xl'"
           v-html="currentSlideItem.titleHtml || currentSlideItem.title"
         ></h1>
 
         <!-- Лаконичный производственный текст -->
         <p 
-          class="text-slate-100 sm:text-slate-200 leading-relaxed font-normal max-w-xl drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] sm:drop-shadow-none"
+          class="text-slate-100 sm:text-slate-200 leading-relaxed font-normal w-full max-w-none sm:max-w-xl drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] sm:drop-shadow-none"
           :class="isHalfHeight ? 'text-xs sm:text-sm line-clamp-3 sm:line-clamp-none' : 'text-base sm:text-lg'"
         >
           {{ currentSlideItem.description }}
@@ -204,7 +204,7 @@ const classicSlides = [
   {
     id: 'company-overview',
     title: 'РАДИОМА – профессиональная радиосвязь и навигация с 1995 года',
-    titleHtml: 'РАДИОМА – профессиональная радиосвязь <br class="sm:hidden" />и навигация с 1995 года',
+    titleHtml: 'РАДИОМА – профессиональная<br class="sm:hidden" /> радиосвязь и&nbsp;навигация<br /> <span class="whitespace-nowrap">с&nbsp;1995&nbsp;года</span>',
     description: 'Отечественный производитель и системный интегратор ведомственных комплексов и систем связи.',
     buttonText: 'О компании',
     link: '#about',
