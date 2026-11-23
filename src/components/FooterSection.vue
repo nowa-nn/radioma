@@ -79,13 +79,13 @@
           © 1995–2026 ООО «Радиома оборудование связи и навигации». Все права защищены.
         </div>
         <div class="flex items-center gap-3 sm:gap-4 flex-wrap text-slate-400">
-          <a href="#" class="hover:text-white transition-colors cursor-pointer" @click.prevent>
+          <router-link to="/privacy" class="hover:text-white transition-colors">
             Политика конфиденциальности
-          </a>
+          </router-link>
           <span class="text-slate-600 hidden sm:inline">•</span>
-          <a href="#" class="hover:text-white transition-colors cursor-pointer" @click.prevent>
+          <router-link to="/consent" class="hover:text-white transition-colors">
             Согласие на обработку персональных данных
-          </a>
+          </router-link>
         </div>
       </div>
     </div>

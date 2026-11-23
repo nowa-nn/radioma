@@ -5,6 +5,8 @@ import NewsDetailView from '../views/NewsDetailView.vue'
 import DirectionDetailView from '../views/DirectionDetailView.vue'
 import CompactView from '../views/CompactView.vue'
 import ClassicView from '../views/ClassicView.vue'
+import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
+import ConsentView from '../views/ConsentView.vue'
 
 const routes = [
   {
@@ -34,6 +36,18 @@ const routes = [
     path: '/news/:id',
     name: 'news-detail',
     component: NewsDetailView
+  },
+  {
+    path: '/privacy',
+    name: 'privacy',
+    component: PrivacyPolicyView,
+    alias: ['/policy', '/privacy-policy']
+  },
+  {
+    path: '/consent',
+    name: 'consent',
+    component: ConsentView,
+    alias: ['/agreement', '/personal-data', '/soglasie']
   },
   {
     path: '/:pathMatch(.*)*',

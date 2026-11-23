@@ -149,7 +149,11 @@
                     @change="clearError('consent')"
                   />
                   <span class="text-xs text-slate-600 leading-relaxed">
-                    я даю согласие на обработку моих персональных данных в соотвествии с политикой конфиденциальности <span class="text-red-500">*</span>
+                    я даю согласие на обработку моих персональных данных в соответствии с 
+                    <router-link to="/consent" target="_blank" class="text-[#0093CB] font-medium hover:underline cursor-pointer" @click.stop>Согласием</router-link> 
+                    и подтверждаю ознакомление с 
+                    <router-link to="/privacy" target="_blank" class="text-[#0093CB] font-medium hover:underline cursor-pointer" @click.stop>Политикой конфиденциальности</router-link> 
+                    <span class="text-red-500">*</span>
                   </span>
                 </label>
                 <p v-if="errors.consent" class="text-xs text-red-600 mt-1 pl-6">
