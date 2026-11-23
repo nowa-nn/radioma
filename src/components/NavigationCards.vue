@@ -26,7 +26,7 @@
 
             <!-- Наименование направления (в точности по утвержденному списку) -->
             <h3 class="text-base font-bold text-slate-900 leading-snug mt-4">
-              <router-link :to="`/directions/${item.id}`" class="hover:text-[#0093CB] transition-colors">
+              <router-link :to="getDirectionLink(item.id)" class="hover:text-[#0093CB] transition-colors">
                 {{ item.title }}
               </router-link>
             </h3>
@@ -40,7 +40,7 @@
           <!-- Ссылка перехода -->
           <div class="pt-4 mt-5 border-t border-slate-100">
             <router-link 
-              :to="`/directions/${item.id}`" 
+              :to="getDirectionLink(item.id)" 
               class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0093CB] hover:text-[#007EAF] transition-colors"
             >
               <span>Подробнее</span>
@@ -54,7 +54,24 @@
 </template>
 
 <script setup>
-import { h } from 'vue'
+import { h, computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+const props = defineProps({
+  variant: {
+    type: String,
+    default: ''
+  }
+})
+
+const route = useRoute()
+const isClassic = computed(() => {
+  return props.variant === 'classic' || route?.path?.startsWith('/classic') || (typeof window !== 'undefined' && window.location.pathname.includes('classic'))
+})
+
+function getDirectionLink(id) {
+  return isClassic.value ? { path: `/directions/${id}`, query: { from: 'classic' } } : `/directions/${id}`
+}
 
 // Векторные строгие технические иконки (без цветных фонов)
 const IconGmssb = () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24', strokeWidth: 1.5 }, [
@@ -108,7 +125,7 @@ const IconMaintenance = () => h('svg', { fill: 'none', stroke: 'currentColor', v
 ])
 
 // 8 утвержденных направлений (карточек)
-const items = [
+const items = computed(() => [
   {
     id: 'gmssb',
     title: 'Системы глобальной морской связи при бедствии для обеспечения безопасности мореплавания (ГМССБ)',
@@ -125,14 +142,14 @@ const items = [
   },
   {
     id: 'marine-radio',
-    title: 'Радиостанции для морского и речного флота',
+    title: isClassic.value ? 'Радиостанции для оснащения судов' : 'Радиостанции для морского и речного флота',
     description: 'Стационарные, судовые и портативные радиостанции УКВ и КВ диапазонов «РАДИОМА» и «САНТЕЙ МОБАЙЛ» с типовым одобрением РМРС и РКО.',
     icon: IconMarineRadio,
     link: '#marine-radio'
   },
   {
     id: 'trunking',
-    title: 'Оборудование и системы транкинговой радиосвязи',
+    title: isClassic.value ? 'Профессиональные системы и оборудование подвижной радиосвязи (PMR/LMR)' : 'Оборудование и системы транкинговой радиосвязи',
     description: 'Системы транкинговой радиосвязи, оборудование и технологии PoC, базовая инфраструктура и абонентские терминалы.',
     icon: IconTrunking,
     link: '#trunking'
@@ -160,10 +177,10 @@ const items = [
   },
   {
     id: 'maintenance',
-    title: 'Техническое обслуживание и ремонт техники связи',
+    title: isClassic.value ? 'Сервисное обслуживание и ремонт' : 'Техническое обслуживание и ремонт техники связи',
     description: 'Регламентное ТО, ремонт, диагностика параметров и периодическое техническое освидетельствование оборудования связи и навигации в сертифицированной лаборатории.',
     icon: IconMaintenance,
     link: '#maintenance'
   }
-]
+])
 </script>

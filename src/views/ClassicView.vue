@@ -5,16 +5,16 @@
 
     <main class="flex-grow pt-14 sm:pt-16">
       <!-- 1. Первый экран (HeroSlider на всю высоту экрана за вычетом хедера) -->
-      <HeroSlider :is-transparent="false" />
+      <HeroSlider :is-transparent="false" variant="classic" />
 
       <!-- 2. Направления деятельности (#directions) -->
-      <NavigationCards />
+      <NavigationCards variant="classic" />
 
       <!-- 3. Блок Новости (#news) -->
       <NewsSection />
 
       <!-- 4. О компании (#about) -->
-      <AboutSection />
+      <AboutSection variant="classic" />
 
       <!-- 5. Контакты и реквизиты (#contacts) -->
       <ContactsSection />

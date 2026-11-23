@@ -1,16 +1,16 @@
 <template>
   <div class="min-h-screen bg-slate-50 font-sans antialiased text-slate-900 flex flex-col relative">
     <!-- Шапка сайта (на внутренней странице работает в белом фиксированном режиме) -->
-    <TransparentHeader :force-solid="true" />
+    <TransparentHeader :force-solid="true" :variant="isFromClassic ? 'classic' : 'shape'" />
 
     <main class="flex-grow pt-28 sm:pt-36 pb-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Навигационные хлебные крошки (Breadcrumbs) -->
         <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 flex-wrap">
-          <router-link to="/" class="hover:text-slate-900 transition-colors">Главная</router-link>
+          <router-link :to="isFromClassic ? '/classic' : '/'" class="hover:text-slate-900 transition-colors">Главная</router-link>
           <span>/</span>
-          <router-link :to="{ path: '/', hash: '#directions' }" class="hover:text-slate-900 transition-colors">
+          <router-link :to="isFromClassic ? { path: '/classic', hash: '#directions' } : { path: '/', hash: '#directions' }" class="hover:text-slate-900 transition-colors">
             Направления деятельности
           </router-link>
           <span>/</span>
@@ -147,7 +147,7 @@
               <!-- Нижняя панель возврата -->
               <div class="pt-4 flex items-center justify-between flex-wrap gap-4 border-t border-slate-200">
                 <router-link 
-                  :to="{ path: '/', hash: '#directions' }" 
+                  :to="isFromClassic ? { path: '/classic', hash: '#directions' } : { path: '/', hash: '#directions' }" 
                   class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#0093CB] hover:text-[#007EAF] transition-colors"
                 >
                   <span>←</span>
@@ -202,11 +202,11 @@
                 <ul class="space-y-2 text-xs">
                   <li v-for="item in otherDirections" :key="item.id">
                     <router-link 
-                      :to="`/directions/${item.id}`"
+                      :to="{ path: `/directions/${item.id}`, query: isFromClassic ? { from: 'classic' } : {} }"
                       class="text-slate-700 hover:text-[#0093CB] transition-colors flex items-center justify-between group py-1"
                     >
                       <span class="group-hover:translate-x-0.5 transition-transform line-clamp-1">
-                        {{ item.shortTitle }}
+                        {{ item.sidebarTitle || item.shortTitle }}
                       </span>
                       <span class="text-slate-400 group-hover:text-[#0093CB] transition-colors ml-2">→</span>
                     </router-link>
@@ -259,6 +259,10 @@ import directionsData from '../data/directions.json'
 const baseUrl = import.meta.env.BASE_URL
 const route = useRoute()
 const isModalOpen = ref(false)
+
+const isFromClassic = computed(() => {
+  return route.query.from === 'classic' || route.query.variant === 'classic' || route.path.includes('classic')
+})
 
 const directionId = computed(() => route.params.id)
 

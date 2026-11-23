@@ -14,7 +14,7 @@
   >
     <!-- Фоновые изображения на всю ширину экрана с плавной одновременной сменой (без мерцания и задержек загрузки) -->
     <div 
-      v-for="(slide, idx) in slides" 
+      v-for="(slide, idx) in activeSlides" 
       :key="slide.id" 
       class="absolute inset-0 w-full h-full bg-[#05182e] transition-opacity duration-700 ease-in-out pointer-events-none"
       :class="currentSlide === idx ? 'opacity-100 z-0' : 'opacity-0 -z-10'"
@@ -91,7 +91,7 @@
           </a>
           <router-link 
             v-else
-            :to="currentSlideItem.link"
+            :to="isClassic ? { path: currentSlideItem.link, query: { from: 'classic' } } : currentSlideItem.link"
             class="inline-block bg-[#0093CB] hover:bg-[#007EAF] text-white font-medium rounded transition-colors shadow-sm"
             :class="isHalfHeight ? 'text-xs px-4 py-2' : 'text-sm px-6 py-3'"
           >
@@ -106,7 +106,7 @@
         :class="isHalfHeight ? 'pt-4' : 'pt-10'"
       >
         <button 
-          v-for="(_, idx) in slides" 
+          v-for="(_, idx) in activeSlides" 
           :key="idx"
           type="button"
           class="h-1 rounded transition-all duration-300 cursor-pointer"
@@ -131,6 +131,10 @@ const props = defineProps({
   isHalfHeight: {
     type: Boolean,
     default: false
+  },
+  variant: {
+    type: String,
+    default: ''
   }
 })
 
@@ -140,8 +144,12 @@ const currentSlide = ref(0)
 let timer = null
 const baseUrl = import.meta.env.BASE_URL
 
-// Слайды с реальными фотографиями оборудования и объектов ООО «Радиома»
-const slides = [
+const isClassic = computed(() => {
+  return props.variant === 'classic' || route?.path?.startsWith('/classic') || (typeof window !== 'undefined' && window.location.pathname.includes('classic'))
+})
+
+// Базовые слайды для стандартного варианта
+const defaultSlides = [
   {
     id: 'company-overview',
     title: 'РАДИОМА — радиосвязь и навигация с 1995 года',
@@ -191,13 +199,67 @@ const slides = [
   }
 ]
 
-const currentSlideItem = computed(() => slides[currentSlide.value])
+// Специализированные слайды для варианта classic (по утвержденным формулировкам)
+const classicSlides = [
+  {
+    id: 'company-overview',
+    title: 'РАДИОМА – профессиональная радиосвязь и навигация с 1995 года',
+    titleHtml: 'РАДИОМА – профессиональная радиосвязь <br class="sm:hidden" />и навигация с 1995 года',
+    description: 'Отечественный производитель и системный интегратор ведомственных комплексов и систем связи.',
+    buttonText: 'О компании',
+    link: '#about',
+    image: `${baseUrl}images/pome/dscf2.jpg`,
+    imageWrapperClass: 'absolute inset-y-0 right-0 w-full lg:w-[65%] xl:w-[60%]',
+    imageClass: 'w-full h-full object-cover object-left'
+  },
+  {
+    id: 'suds-ais',
+    title: 'Оборудование систем управления движения судов',
+    titleHtml: 'Оборудование систем <br class="sm:hidden" />управления движения судов',
+    description: 'Береговое и судовое оборудование АИС, лоцманские комплексы и системы.',
+    buttonText: 'Подробнее',
+    link: '/directions/suds-ais',
+    image: `${baseUrl}images/pome/dscf18.jpg`
+  },
+  {
+    id: 'gmssb',
+    title: 'Системы и оборудование глобальной морской связи при бедствии',
+    titleHtml: 'Системы и оборудование глобальной <br class="sm:hidden" />морской связи при бедствии',
+    description: 'Комплексные береговые и судовые технические решения для несения непрерывной радиовахты в морских районах А1, А2 и А3, включая акваторию СМП.',
+    buttonText: 'Подробнее',
+    link: '/directions/gmssb',
+    image: `${baseUrl}images/pome/dscf05.jpg`
+  },
+  {
+    id: 'marine-radio',
+    title: 'Радиостанции для морского и речного флота',
+    titleHtml: 'Радиостанции для морского <br class="sm:hidden" />и речного флота',
+    description: 'Береговые и судовые радиостанции (ПВ-КВ/УКВ) и носимые трансиверы морского и речного диапазонов частот, антенны и блоки питания.',
+    buttonText: 'Подробнее',
+    link: '/directions/marine-radio',
+    image: `${baseUrl}images/pome/dscf1.jpg`
+  },
+  {
+    id: 'trunking',
+    title: 'Профессиональные системы и оборудование подвижной радиосвязи (PMR/LMR)',
+    titleHtml: 'Профессиональные системы и оборудование <br class="sm:hidden" />подвижной радиосвязи (PMR/LMR)',
+    description: 'Современное оборудование радиосвязи и навигации, в том числе собственного производства на территории Российской Федерации.',
+    buttonText: 'Подробнее',
+    link: '/directions/trunking',
+    image: `${baseUrl}images/pome/dscf15.jpg`
+  }
+]
+
+const activeSlides = computed(() => isClassic.value ? classicSlides : defaultSlides)
+
+const currentSlideItem = computed(() => activeSlides.value[currentSlide.value])
 
 function handleLinkClick(hash, event) {
   if (event) {
     event.preventDefault()
   }
-  if (route.path === '/' || route.path === '') {
+  const isCurrentHome = ['/', '', '/classic', '/compact', '/transparent'].includes(route.path)
+  if (isCurrentHome) {
     const target = document.querySelector(hash)
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' })
@@ -205,15 +267,16 @@ function handleLinkClick(hash, event) {
       return
     }
   }
-  router.push({ path: '/', hash })
+  const basePath = isClassic.value ? '/classic' : '/'
+  router.push({ path: basePath, hash })
 }
 
 function nextSlide() {
-  currentSlide.value = (currentSlide.value + 1) % slides.length
+  currentSlide.value = (currentSlide.value + 1) % activeSlides.value.length
 }
 
 function prevSlide() {
-  currentSlide.value = (currentSlide.value - 1 + slides.length) % slides.length
+  currentSlide.value = (currentSlide.value - 1 + activeSlides.value.length) % activeSlides.value.length
 }
 
 function setSlide(index) {
@@ -273,7 +336,7 @@ function stopAutoplay() {
 
 onMounted(() => {
   // Мгновенная предзагрузка всех слайдов в кэш браузера для мгновенного переключения без ожидания сети
-  slides.forEach(slide => {
+  activeSlides.value.forEach(slide => {
     const img = new Image()
     img.src = slide.image
   })
