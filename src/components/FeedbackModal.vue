@@ -157,6 +157,24 @@
                 </p>
               </div>
 
+              <!-- Скрытое поле защиты от спам-ботов (Honeypot) -->
+              <input 
+                type="text" 
+                v-model="form.honeypot" 
+                tabindex="-1" 
+                autocomplete="off" 
+                class="hidden opacity-0 absolute -z-10 pointer-events-none" 
+                aria-hidden="true" 
+              />
+
+              <!-- Сообщение об ошибке отправки (если сервер вернул ошибку) -->
+              <div v-if="submitError" class="p-3 bg-red-50 border border-red-200 rounded-sm text-xs text-red-700 leading-relaxed flex items-start gap-2">
+                <svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span>{{ submitError }}</span>
+              </div>
+
               <!-- Кнопка отправки формы -->
               <div class="pt-3">
                 <button 
@@ -230,6 +248,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const isSubmitted = ref(false)
 const isSubmitting = ref(false)
+const submitError = ref('')
 
 const captchaNum1 = ref(4)
 const captchaNum2 = ref(7)
@@ -251,7 +270,8 @@ const form = reactive({
   name: '',
   phone: '',
   captcha: '',
-  consent: false // Строго не отмечен по умолчанию согласно требованию
+  consent: false, // Строго не отмечен по умолчанию согласно требованию
+  honeypot: ''
 })
 
 const errors = reactive({
@@ -469,18 +489,57 @@ function validate() {
   return valid
 }
 
-function handleSubmit() {
+async function handleSubmit() {
   if (!validate()) {
     return
   }
 
   isSubmitting.value = true
+  submitError.value = ''
 
-  // Имитация отправки формы на сервер (в будущем интеграция с Directus/CRM)
-  setTimeout(() => {
+  try {
+    const payload = {
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      subject: props.subject || props.title || 'Запрос с сайта',
+      pageUrl: typeof window !== 'undefined' ? window.location.href : '',
+      honeypot: form.honeypot || ''
+    }
+
+    // В dev-режиме локального сервера эмулируем отправку
+    if (import.meta.env.DEV) {
+      console.log('[DEV mode] Отправка заявки на office@radioma.ru:', payload)
+      await new Promise(resolve => setTimeout(resolve, 600))
+      isSubmitting.value = false
+      isSubmitted.value = true
+      return
+    }
+
+    const mailEndpoint = `${import.meta.env.BASE_URL || '/'}mail.php`.replace('//', '/')
+    const response = await fetch(mailEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+
+    const data = await response.json().catch(() => null)
+
+    if (response.ok && data && data.success) {
+      isSubmitted.value = true
+    } else {
+      submitError.value = (data && data.error)
+        ? data.error
+        : 'Не удалось отправить заявку через почтовую службу. Пожалуйста, позвоните нам по номеру +7 (495) 725-6006.'
+    }
+  } catch (err) {
+    console.error('Submit error:', err)
+    submitError.value = 'Ошибка соединения с сервером. Пожалуйста, проверьте интернет или позвоните нам по номеру +7 (495) 725-6006.'
+  } finally {
     isSubmitting.value = false
-    isSubmitted.value = true
-  }, 400)
+  }
 }
 
 function closeModal() {
@@ -488,10 +547,12 @@ function closeModal() {
   // Сброс через задержку анимации
   setTimeout(() => {
     isSubmitted.value = false
+    submitError.value = ''
     form.name = ''
     form.phone = ''
     form.captcha = ''
     form.consent = false
+    form.honeypot = ''
     errors.name = ''
     errors.phone = ''
     errors.captcha = ''
