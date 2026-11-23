@@ -18,9 +18,6 @@
           
           <!-- Заголовок документа -->
           <header class="border-b border-slate-200 pb-6">
-            <span class="text-xs uppercase tracking-wider font-bold text-[#0093CB] block mb-2">
-              Официальный документ ООО «Радиома»
-            </span>
             <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 leading-tight">
               Политика в отношении обработки персональных данных
             </h1>
