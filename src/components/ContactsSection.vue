@@ -11,7 +11,7 @@
       <!-- Двухколоночный блок: контакты слева, интерактивная карта офиса справа -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         <!-- Левая часть: Центральный офис (увеличенная ширина карточки на десктопе) -->
-        <div class="lg:col-span-6 bg-white border border-slate-200 rounded-sm p-6 sm:p-8 flex flex-col justify-between h-full shadow-sm">
+        <div class="lg:col-span-6 bg-white border border-slate-200 rounded-sm p-6 sm:p-8 flex flex-col justify-center h-full shadow-sm">
           <div>
             <h3 class="text-base sm:text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">
               Центральный офис
@@ -61,25 +61,10 @@
               </div>
             </div>
           </div>
-
-          <!-- Аккуратный блок реквизитов под контактами -->
-          <div class="mt-6 pt-5 border-t border-slate-100">
-            <details class="group text-xs text-slate-600">
-              <summary class="font-semibold text-slate-800 cursor-pointer list-none flex items-center justify-between hover:text-[#0093CB] transition-colors select-none">
-                <span>Реквизиты организации</span>
-                <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <div class="mt-3 pt-3 border-t border-slate-100 space-y-2 text-[11px] leading-relaxed">
-                <div><span class="text-slate-400">Наименование:</span> ООО «Радиома оборудование связи и навигации»</div>
-                <div><span class="text-slate-400">ИНН / КПП:</span> 7728148920 / 772801001</div>
-                <div><span class="text-slate-400">ОГРН:</span> 1027700348210 &bull; <span class="text-slate-400">ОКПО:</span> 40284910</div>
-              </div>
-            </details>
-          </div>
         </div>
 
         <!-- Правая часть: Интерактивная карта с отметкой офиса компании -->
-        <div class="lg:col-span-6 bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm min-h-[380px] sm:min-h-[440px] relative">
+        <div class="lg:col-span-6 bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm min-h-[340px] sm:min-h-[380px] relative">
           <iframe 
             src="https://yandex.ru/map-widget/v1/?ll=37.598185%2C55.759081&z=17&pt=37.598185%2C55.759081,pm2blm" 
             class="w-full h-full border-0 absolute inset-0"
